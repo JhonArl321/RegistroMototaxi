@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
-import { Dashboard } from "../../pages/dashboard/dashboard";
-import { Formulario } from "../formulario/formulario";
-import { RouterLink } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css',
 })
-export class Sidebar {
+export class SidebarComponent {
+
+  @Output() close = new EventEmitter<void>();
+
+  closeSidebar() {
+    this.close.emit();
+  }
 
 }
