@@ -1,29 +1,29 @@
-<!-- =========================================================
+
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+
+
+
+  
+/><!-- =========================================================
  LAYOUT PRINCIPAL DEL SISTEMA
- Contenedor general que maneja:
- - Navbar móvil
- - Sidebar
- - Fondo oscuro en móvil
- - Área principal del contenido
 ========================================================= -->
+
 
 <div class="flex min-h-screen bg-zinc-100">
 
   <!-- =========================================================
-   NAVBAR PARA DISPOSITIVOS MÓVILES
-   Solo se muestra en pantallas pequeñas.
-   lg:hidden -> oculto en desktop
+   NAVBAR MOVIL
   ========================================================= -->
   <header
     class="fixed top-0 left-0 z-40 flex h-16 w-full items-center border-b border-zinc-200 bg-white px-4 shadow-sm lg:hidden">
 
-    <!-- =========================================================
-     BOTÓN HAMBURGUESA
-     Abre y cierra el sidebar en móvil
-    ========================================================= -->
+    <!-- BOTÓN HAMBURGUESA -->
     <button
       (click)="toggleSidebar()"
-      class="rounded-lg bg-zinc-900 p-3 text-white">
+      class="rounded-lg bg-zinc-900 p-2.5 text-white">
 
       <i class="fa-solid fa-bars"></i>
 
@@ -32,48 +32,18 @@
   </header>
 
   <!-- =========================================================
-   FONDO OSCURO
-   Aparece detrás del sidebar cuando está abierto.
-   Solo visible en móvil.
-  ========================================================= -->
-  <div
-    *ngIf="sidebarOpen"
-    (click)="closeSidebar()"
-    class="fixed inset-0 z-40 bg-black/50 lg:hidden">
-  </div>
-
-  <!-- =========================================================
    SIDEBAR
-   Menú lateral principal del sistema.
-   fixed -> permanece fijo
-   translate-x -> animación de entrada/salida
   ========================================================= -->
-  <div
-    class="fixed left-0 top-0 z-50 transition-transform duration-300 lg:translate-x-0"
-    [class.translate-x-0]="sidebarOpen"
-    [class.-translate-x-full]="!sidebarOpen">
-
-    <!-- Componente Sidebar -->
-    <app-sidebar (close)="closeSidebar()"></app-sidebar>
-
-  </div>
+  <app-sidebar
+    [sidebarOpen]="sidebarOpen"
+    (close)="closeSidebar()">
+  </app-sidebar>
 
   <!-- =========================================================
    CONTENIDO PRINCIPAL
-   router-outlet carga dinámicamente las vistas.
-
-   mt-16:
-   Deja espacio para el navbar móvil fijo.
-
-   lg:ml-72:
-   En desktop deja espacio para el sidebar.
-
-   lg:mt-0:
-   Elimina margen superior en desktop.
   ========================================================= -->
   <main class="flex-1 px-4 py-4 mt-16 lg:ml-72 lg:mt-0">
 
-    <!-- Aquí Angular renderiza las páginas -->
     <router-outlet></router-outlet>
 
   </main>
