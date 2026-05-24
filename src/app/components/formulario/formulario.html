@@ -1,90 +1,183 @@
+<!-- 
+  Formulario principal del registro de mototaxis.
+  Se utiliza ngForm para manejar el formulario desde Angular
+  y ejecutar el método guardarMototaxi() al enviar.
+-->
 <form #formulario="ngForm" (ngSubmit)="guardarMototaxi(formulario)">
+
     <div class="space-y-12">
 
-
+        <!-- Contenedor principal -->
         <div class="border-b border-gray-900/10 pb-12">
-            <h2 class="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Registro de
-                mototaxi</h2>
-            <p class="mt-1 text-sm/6 text-gray-600">Ingresa la información del propietario y vehículo.</p>
+
+            <!-- Título -->
+            <h2 class="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                Registro de mototaxi
+            </h2>
+
+            <!-- Descripción -->
+            <p class="mt-1 text-sm/6 text-gray-600">
+                Ingresa la información del propietario y vehículo.
+            </p>
+
+            <!-- Grid del formulario -->
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+                <!-- Campo nombres -->
                 <div class="sm:col-span-3">
-                    <label for="first-name" class="block text-sm/6 font-medium text-gray-900">Nombres</label>
+
+                    <label for="first-name" class="block text-sm/6 font-medium text-gray-900">
+                        Nombres
+                    </label>
+
                     <div class="mt-2">
-                        <input id="first-name" type="text" name="nombres" [(ngModel)]="nombres"
+
+                        <!-- 
+                          ngModel conecta el input con la variable nombres del TS.
+                        -->
+                        <input
+                            id="first-name"
+                            type="text"
+                            name="nombres"
+                            [(ngModel)]="nombres"
                             autocomplete="given-name"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+
                     </div>
+
                 </div>
 
+                <!-- Campo apellidos -->
                 <div class="sm:col-span-3">
-                    <label for="last-name" class="block text-sm/6 font-medium text-gray-900">Apellidos</label>
+
+                    <label for="last-name" class="block text-sm/6 font-medium text-gray-900">
+                        Apellidos
+                    </label>
+
                     <div class="mt-2">
-                        <input id="last-name" type="text" name="apellidos" [(ngModel)]="apellidos"
+
+                        <input
+                            id="last-name"
+                            type="text"
+                            name="apellidos"
+                            [(ngModel)]="apellidos"
                             autocomplete="family-name"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+
                     </div>
+
                 </div>
 
-
+                <!-- Campo DPI -->
                 <div class="sm:col-span-3">
-                    <label for="dpi" class="block text-sm/6 font-medium text-gray-900">DPI</label>
-                    <div class="mt-2">
-                        <input id="dpi" type="text" name="dpi" [(ngModel)]="dpi" autocomplete="family-name"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-                    </div>
-                </div>
 
-                <div class="sm:col-span-3">
-                    <label for="domicilio" class="block text-sm/6 font-medium text-gray-900">Domicilio</label>
+                    <label for="dpi" class="block text-sm/6 font-medium text-gray-900">
+                        DPI
+                    </label>
+
                     <div class="mt-2">
-                        <input id="domicilio" type="text" name="domicilio" [(ngModel)]="domicilio"
+
+                        <input
+                            id="dpi"
+                            type="text"
+                            name="dpi"
+                            [(ngModel)]="dpi"
                             autocomplete="family-name"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+
                     </div>
+
                 </div>
 
-
+                <!-- Campo domicilio -->
                 <div class="sm:col-span-3">
-                    <label for="modelo" class="block text-sm/6 font-medium text-gray-900">Modelo</label>
-                    <div class="mt-2 grid grid-cols-1">
-                        <select id="modelo" name="modelo" [(ngModel)]="modelo" autocomplete="modelos"
-                            class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            <option>TVS King</option>
-                            <option>Bajaj</option>
-                            <option>Yamaha</option>
-                            <option>Suzuki</option>
-                        </select>
-                        <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true"
-                            class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
-                            <path
-                                d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                clip-rule="evenodd" fill-rule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
 
-                <div class="sm:col-span-2 sm:col-start-1">
-                    <label for="color" class="block text-sm/6 font-medium text-gray-900">Color</label>
+                    <label for="domicilio" class="block text-sm/6 font-medium text-gray-900">
+                        Domicilio
+                    </label>
+
                     <div class="mt-2">
-                        <input id="color" type="text" name="color" [(ngModel)]="color" autocomplete="address-level2"
+
+                        <input
+                            id="domicilio"
+                            type="text"
+                            name="domicilio"
+                            [(ngModel)]="domicilio"
+                            autocomplete="family-name"
                             class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+
                     </div>
+
                 </div>
 
+                <!-- Selector del modelo -->
+                <div class="sm:col-span-3">
 
-
-
-                <div class="sm:col-span-2">
-
-                    <label for="region" class="block text-sm/6 font-medium text-gray-900">
-
-                        Seguro de vida
-
+                    <label for="modelo" class="block text-sm/6 font-medium text-gray-900">
+                        Modelo
                     </label>
 
                     <div class="mt-2 grid grid-cols-1">
 
-                        <select id="seguroVida" name="seguroVida" [(ngModel)]="seguroVida" autocomplete="country-name"
+                        <!-- 
+                          Select conectado a la variable modelo.
+                        -->
+                        <select
+                            id="modelo"
+                            name="modelo"
+                            [(ngModel)]="modelo"
+                            autocomplete="modelos"
+                            class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+
+                            <option>TVS King</option>
+                            <option>Bajaj</option>
+                            <option>Yamaha</option>
+                            <option>Suzuki</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- Campo color -->
+                <div class="sm:col-span-2 sm:col-start-1">
+
+                    <label for="color" class="block text-sm/6 font-medium text-gray-900">
+                        Color
+                    </label>
+
+                    <div class="mt-2">
+
+                        <input
+                            id="color"
+                            type="text"
+                            name="color"
+                            [(ngModel)]="color"
+                            autocomplete="address-level2"
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+
+                    </div>
+
+                </div>
+
+                <!-- Seguro de vida -->
+                <div class="sm:col-span-2">
+
+                    <label for="region" class="block text-sm/6 font-medium text-gray-900">
+                        Seguro de vida
+                    </label>
+
+                    <div class="mt-2 grid grid-cols-1">
+
+                        <!-- 
+                          Select conectado a seguroVida.
+                        -->
+                        <select
+                            id="seguroVida"
+                            name="seguroVida"
+                            [(ngModel)]="seguroVida"
+                            autocomplete="country-name"
                             class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
 
                             <option>Si</option>
@@ -92,51 +185,65 @@
 
                         </select>
 
-                        <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon" aria-hidden="true"
-                            class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4">
-
-                            <path
-                                d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-                                clip-rule="evenodd" fill-rule="evenodd" />
-
-                        </svg>
-
                     </div>
+
                 </div>
 
-
-
-
-
-
+                <!-- Código automático -->
                 <div class="sm:col-span-2">
 
                     <label for="codigo" class="block text-sm/6 font-medium text-gray-900">
-
                         Código único de identificación de mototaxi
-
                     </label>
 
                     <div class="mt-2">
 
-                        <input id="codigo" type="text" name="codigo" [(ngModel)]="codigo" readonly
+                        <!-- 
+                          Campo readonly.
+                          El código se genera automáticamente desde TypeScript.
+                        -->
+                        <input
+                            id="codigo"
+                            type="text"
+                            name="codigo"
+                            [(ngModel)]="codigo"
+                            readonly
                             class="block w-full cursor-not-allowed rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-500 outline-1 -outline-offset-1 outline-gray-300 sm:text-sm/6" />
 
                     </div>
 
                 </div>
+
             </div>
+
         </div>
 
     </div>
 
+    <!-- Botones -->
     <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button type="button" class="text-sm/6 font-semibold text-gray-900">Cancelar</button>
-        <button type="submit"
+
+        <!-- Botón cancelar -->
+        <button
+            type="button"
+            class="text-sm/6 font-semibold text-gray-900">
+
+            Cancelar
+
+        </button>
+
+        <!-- 
+          Botón submit.
+          Ejecuta el método guardarMototaxi().
+        -->
+        <button
+            type="submit"
             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
 
             Registrar
 
         </button>
+
     </div>
+
 </form>
