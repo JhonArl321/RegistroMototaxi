@@ -2,27 +2,20 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 
-// Funciones necesarias para trabajar con Firestore
-import {
-  Firestore,
-  collection,
-  addDoc
-} from '@angular/fire/firestore';
+// Service
+import { MototaxiService } from '../../services/mototaxi';
 
 @Component({
   selector: 'app-formulario',
   standalone: true,
-
-  // FormsModule permite usar ngModel y formularios
   imports: [FormsModule],
-
   templateUrl: './formulario.html',
 })
 
 export class FormularioComponent {
 
-  // Inyección de Firestore
-  firestore = inject(Firestore);
+  // Inyección del service
+  motoService = inject(MototaxiService);
 
   // Variables conectadas al formulario
   nombres = '';
@@ -33,20 +26,20 @@ export class FormularioComponent {
   color = '';
   seguroVida = '';
 
-  // Código automático generado al cargar el formulario
-  codigo = this.generarCodigo();
+  // Código automático
+  codigo = this.motoService.generarCodigo();
 
-  // Método para guardar el mototaxi
+  // Método guardar
   async guardarMototaxi(formulario: NgForm) {
 
-    // Limpieza de espacios vacíos
+    // Limpieza de espacios
     const nombresLimpio = this.nombres.trim();
     const apellidosLimpio = this.apellidos.trim();
     const dpiLimpio = this.dpi.trim();
     const domicilioLimpio = this.domicilio.trim();
     const colorLimpio = this.color.trim();
 
-    // Validación de campos vacíos
+    // Validación
     if (
       !nombresLimpio ||
       !apellidosLimpio ||
@@ -57,7 +50,6 @@ export class FormularioComponent {
       !this.seguroVida
     ) {
 
-      // Mensaje de advertencia
       Swal.fire({
         icon: 'warning',
         title: 'Campos vacíos',
@@ -71,11 +63,8 @@ export class FormularioComponent {
 
     try {
 
-      // Referencia a la colección de Firestore
-      const referencia = collection(this.firestore, 'mototaxis');
-
-      // Guardar documento en Firebase
-      await addDoc(referencia, {
+      // Guardar usando el service
+      await this.motoService.guardarMototaxi({
 
         nombres: nombresLimpio,
         apellidos: apellidosLimpio,
@@ -88,7 +77,7 @@ export class FormularioComponent {
 
       });
 
-      // Mensaje de éxito
+      // Mensaje éxito
       Swal.fire({
         icon: 'success',
         title: 'Mototaxi registrado',
@@ -96,18 +85,16 @@ export class FormularioComponent {
         confirmButtonColor: '#4f46e5'
       });
 
-      // Limpia visualmente el formulario
+      // Limpiar formulario
       formulario.resetForm();
 
-      // Genera un nuevo código automático
-      this.codigo = this.generarCodigo();
+      // Nuevo código automático
+      this.codigo = this.motoService.generarCodigo();
 
     } catch (error) {
 
-      // Mostrar error en consola
       console.log(error);
 
-      // Mensaje de error
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -115,25 +102,6 @@ export class FormularioComponent {
       });
 
     }
-
-  }
-
-  // Genera un código similar a una matrícula
-  generarCodigo(): string {
-
-    // Número aleatorio de 3 dígitos
-    const numero = Math.floor(100 + Math.random() * 900);
-
-    // Letras disponibles
-    const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    // Generación aleatoria de letras
-    const letra1 = letras[Math.floor(Math.random() * 26)];
-    const letra2 = letras[Math.floor(Math.random() * 26)];
-    const letra3 = letras[Math.floor(Math.random() * 26)];
-
-    // Retorna el formato final
-    return `M ${numero} ${letra1}${letra2}${letra3}`;
 
   }
 
