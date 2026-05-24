@@ -1,88 +1,83 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
 <div class="flex h-screen bg-zinc-100">
 
-  <!-- Sidebar -->
-  <aside
-    class="relative w-72 border-r border-zinc-800 bg-zinc-900 text-zinc-200">
+    <!-- Sidebar -->
+    <aside class="relative w-72 border-r border-zinc-800 bg-zinc-900 text-zinc-200">
 
-    <!-- Logo -->
-    <div class="flex items-center gap-3 border-b border-zinc-800 p-5">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 border-b border-zinc-800 p-5">
 
-      <div
-        class="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-700 font-bold text-white">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-700 font-bold text-white">
 
-        M
+                M
 
-      </div>
+            </div>
 
-      <div>
+            <div>
 
-        <h1 class="text-sm font-semibold tracking-wide">
-          MotoTaxi
+                <h1 class="text-sm font-semibold tracking-wide">
+                    MotoTaxi
+                </h1>
+
+                <p class="text-xs text-zinc-400">
+                    Sistema administrativo
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Navigation -->
+        <nav class="space-y-1 p-4">
+
+            <a routerLink="/dashboard"
+                class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
+
+                <i class="fa-solid fa-house"></i> <span>Inicio</span>
+
+            </a>
+
+            <a routerLink="/registrar"
+                class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
+
+                <i class="fa-solid fa-plus"></i> <span>Registar</span>
+
+            </a>
+
+            <a routerLink="/mototaxis"
+                class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
+
+                <i class="fa-solid fa-motorcycle"></i> <span>Motocicletas</span>
+
+            </a>
+
+        </nav>
+
+        <!-- Footer -->
+        <div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
+
+            <button class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700">
+
+                Cerrar sesión
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-8 text-zinc-800">
+
+        <h1 class="text-3xl font-bold">
+            
         </h1>
 
-        <p class="text-xs text-zinc-400">
-          Sistema administrativo
+        <p class="mt-2 text-zinc-500">
+            Bienvenido al sistema de registro de mototaxis.
         </p>
 
-      </div>
-
-    </div>
-
-    <!-- Navigation -->
-    <nav class="space-y-1 p-4">
-
-      <a
-        routerLink="/dashboard"
-        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
-
-        📊 Dashboard
-
-      </a>
-
-      <a
-        routerLink="/registrar"
-        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
-
-        ➕ Registrar
-
-      </a>
-
-      <a
-        routerLink="/mototaxis"
-        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
-
-        🛺 Mototaxis
-
-      </a>
-
-    </nav>
-
-    <!-- Footer -->
-    <div
-      class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
-
-      <button
-        class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700">
-
-        Cerrar sesión
-
-      </button>
-
-    </div>
-
-  </aside>
-
-  <!-- Main -->
-  <main class="flex-1 p-8 text-zinc-800">
-
-    <h1 class="text-3xl font-bold">
-      Dashboard
-    </h1>
-
-    <p class="mt-2 text-zinc-500">
-      Bienvenido al sistema de registro de mototaxis.
-    </p>
-
-  </main>
+    </main>
 
 </div>
