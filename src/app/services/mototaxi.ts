@@ -3,7 +3,8 @@ import { Injectable, inject } from '@angular/core';
 import {
   Firestore,
   collection,
-  addDoc
+  addDoc,
+  getDocs
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -37,5 +38,31 @@ export class MototaxiService {
     return `M ${numero} ${letra1}${letra2}${letra3}`;
 
   }
+
+
+async obtenerMototaxis() {
+
+  // Referencia colección
+  const mototaxisRef = collection(
+    this.firestore,
+    'mototaxis'
+  );
+
+  // Obtener documentos
+  const snapshot = await getDocs(mototaxisRef);
+
+  // Retornar arreglo
+  return snapshot.docs.map(doc => ({
+
+    id: doc.id,
+
+    ...doc.data()
+
+  }));
+
+}
+
+
+
 
 }
