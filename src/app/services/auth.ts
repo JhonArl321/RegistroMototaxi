@@ -4,7 +4,9 @@ import {
   Auth,
   signInWithPopup,
   GoogleAuthProvider,
+   GithubAuthProvider,
   signOut
+  
 } from '@angular/fire/auth';
 
 @Injectable({
@@ -19,6 +21,10 @@ export class AuthService {
     return signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
+
+  loginGithub() {
+  return signInWithPopup(this.auth, new GithubAuthProvider());
+}
   logout() {
     return signOut(this.auth);
   }
