@@ -1,28 +1,40 @@
-<!-- Sidebar -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+<!-- =========================================================
+ SIDEBAR PRINCIPAL DEL SISTEMA
+ Contenedor lateral fijo que muestra navegación y acciones.
+ Se utiliza en desktop y móvil.
+========================================================= -->
 
-<aside
-  class="relative flex min-h-screen w-72 flex-col border-r border-zinc-800 bg-zinc-900 text-zinc-200">
+<!-- Librería de iconos Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- Logo -->
+<!-- =========================================================
+ ASIDE / SIDEBAR
+ - w-72 -> ancho fijo
+ - min-h-screen -> ocupa toda la altura
+ - flex-col -> organiza elementos verticalmente
+========================================================= -->
+<aside class="relative flex min-h-screen w-72 flex-col border-r border-zinc-800 bg-zinc-900 text-zinc-200">
+
+  <!-- =========================================================
+   LOGO Y TITULO DEL SISTEMA
+  ========================================================= -->
   <div class="flex items-center gap-3 border-b border-zinc-800 p-5">
 
-    <div
-      class="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-700 font-bold text-white">
+    <!-- Logo circular -->
+    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-700 font-bold text-white">
 
       M
 
     </div>
 
+    <!-- Nombre del sistema -->
     <div>
 
       <h1 class="text-sm font-semibold tracking-wide">
         MotoTaxi
       </h1>
 
+      <!-- Descripción -->
       <p class="text-xs text-zinc-400">
         Sistema administrativo
       </p>
@@ -31,10 +43,16 @@
 
   </div>
 
-  <!-- Navigation -->
+  <!-- =========================================================
+   MENÚ DE NAVEGACIÓN
+   Contiene las rutas principales del sistema
+  ========================================================= -->
   <nav class="space-y-1 p-4">
 
-    <a routerLink="/dashboard" (click)="closeSidebar()"
+    <!-- Inicio -->
+    <a
+      routerLink="/dashboard"
+      (click)="closeSidebar()"
       class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
 
       <i class="fa-solid fa-house text-sm"></i>
@@ -43,8 +61,10 @@
 
     </a>
 
+    <!-- Registro de propietarios -->
     <a
       routerLink="/registrar-propietarios"
+      (click)="closeSidebar()"
       class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
 
       <i class="fa-solid fa-plus text-sm"></i>
@@ -53,6 +73,7 @@
 
     </a>
 
+    <!-- Lista de mototaxis -->
     <a
       routerLink="/mototaxis"
       class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
@@ -65,9 +86,11 @@
 
   </nav>
 
-  <!-- Footer -->
-  <div
-    class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
+  <!-- =========================================================
+   FOOTER DEL SIDEBAR
+   Botón para cerrar sesión
+  ========================================================= -->
+  <div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
 
     <button
       class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700">
