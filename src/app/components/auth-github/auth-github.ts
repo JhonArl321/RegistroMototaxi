@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
 
 import { AuthService } from '../../services/auth';
 
@@ -12,8 +14,11 @@ import { AuthService } from '../../services/auth';
 
 export class AuthGithubComponent {
 
-  constructor(private authService: AuthService) {}
+  // Inyección de servicios necesarios
+  router = inject(Router);
+  authService = inject(AuthService);
 
+  // Método para iniciar sesión con GitHub
   login() {
 
     this.authService.loginGithub()
@@ -22,9 +27,13 @@ export class AuthGithubComponent {
         console.log("Login GitHub correcto");
         console.log(response.user);
 
+        // Redirige al dashboard después del login
+        this.router.navigate(['/dashboard']);
+
       })
       .catch((error) => {
 
+        // Muestra errores en consola
         console.log(error);
 
       });
