@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Login  } from './pages/login/login';
 import { Sidebar } from './components/sidebar/sidebar';
 import { RegistrarPropietarios } from './pages/registrar-propietarios/registrar-propietarios';
+import { Dashboard } from './pages/dashboard/dashboard';
 
 
 export const routes: Routes = [
@@ -20,5 +21,9 @@ export const routes: Routes = [
   component: RegistrarPropietarios,
 },
 
+{
+  path: 'dashboard',
+  component: Dashboard,
+}
 
 ];
