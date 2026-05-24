@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Dashboard } from "../../pages/dashboard/dashboard";
 import { Formulario } from "../formulario/formulario";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [Dashboard, Formulario],
+  imports: [RouterLink],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })

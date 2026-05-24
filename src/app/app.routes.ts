@@ -1,29 +1,36 @@
 import { Routes } from '@angular/router';
-import { Login  } from './pages/login/login';
-import { Sidebar } from './components/sidebar/sidebar';
-import { RegistrarPropietarios } from './pages/registrar-propietarios/registrar-propietarios';
+import { Login } from './pages/login/login';
+import { MainLayout } from './layouts/main-layout/main-layout';
 import { Dashboard } from './pages/dashboard/dashboard';
-
+import { RegistrarPropietarios } from './pages/registrar-propietarios/registrar-propietarios';
 
 export const routes: Routes = [
 
+  // Login
   {
     path: '',
-    component: Login,
+    component: Login
   },
 
-  { path: 'sidebar',
-    component:Sidebar,
-
-  },
+  // Sistema con sidebar fijo
   {
-  path: 'registrar-propietarios',
-  component: RegistrarPropietarios,
-},
+    path: '',
+    component: MainLayout,
 
-{
-  path: 'dashboard',
-  component: Dashboard,
-}
+    children: [
+
+      {
+        path: 'dashboard',
+        component: Dashboard
+      },
+
+      {
+        path: 'registrar-propietarios',
+        component: RegistrarPropietarios
+      }
+
+    ]
+
+  }
 
 ];
