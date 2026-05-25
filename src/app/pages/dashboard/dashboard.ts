@@ -27,6 +27,9 @@ export class Dashboard implements OnInit {
   // Usuario autenticado
   user: User | null = null;
 
+  // Username GitHub
+  githubUsername = '';
+
 
   constructor(
     private cd: ChangeDetectorRef
@@ -38,13 +41,21 @@ export class Dashboard implements OnInit {
     // Detecta usuario autenticado
     onAuthStateChanged(this.auth, (usuario) => {
 
-      // Guarda usuario
-      this.user = usuario;
+      if(usuario){
 
-      console.log(this.user);
+        // Guarda usuario
+        this.user = usuario;
 
-      // Fuerza la actualización de la vista para mostrar el usuario autenticado
-      this.cd.detectChanges();
+        // Obtiene username GitHub
+        this.githubUsername =
+          (usuario as any).reloadUserInfo.screenName;
+
+        console.log(this.user);
+
+        // Actualiza vista
+        this.cd.detectChanges();
+
+      }
 
     });
 

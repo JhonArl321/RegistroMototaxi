@@ -1,19 +1,14 @@
 <!-- =========================================================
  FONDO OSCURO RESPONSIVE
 ========================================================= -->
-<div
-  *ngIf="sidebarOpen"
-  (click)="closeSidebar()"
-  class="fixed inset-0 z-40 bg-black/50 lg:hidden">
+<div *ngIf="sidebarOpen" (click)="closeSidebar()" class="fixed inset-0 z-40 bg-black/50 lg:hidden">
 </div>
 
 <!-- =========================================================
  CONTENEDOR SIDEBAR
 ========================================================= -->
-<div
-  class="fixed left-0 top-0 z-50 transition-transform duration-300 lg:translate-x-0"
-  [class.translate-x-0]="sidebarOpen"
-  [class.-translate-x-full]="!sidebarOpen">
+<div class="fixed left-0 top-0 z-50 transition-transform duration-300 lg:translate-x-0"
+  [class.translate-x-0]="sidebarOpen" [class.-translate-x-full]="!sidebarOpen">
 
   <!-- =========================================================
    SIDEBAR PRINCIPAL
@@ -24,6 +19,7 @@
     <div class="flex items-center gap-3 border-b border-zinc-800 p-5">
 
       <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-700 font-bold text-white">
+
 
         M
 
@@ -46,9 +42,7 @@
     <!-- NAVEGACIÓN -->
     <nav class="space-y-1 p-4">
 
-      <a
-        routerLink="/dashboard"
-        (click)="closeSidebar()"
+      <a routerLink="/dashboard" (click)="closeSidebar()"
         class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
 
         <i class="fa-solid fa-house text-sm"></i>
@@ -57,9 +51,7 @@
 
       </a>
 
-      <a
-        routerLink="/registrar-propietarios"
-        (click)="closeSidebar()"
+      <a routerLink="/registrar-propietarios" (click)="closeSidebar()"
         class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
 
         <i class="fa-solid fa-plus text-sm"></i>
@@ -68,9 +60,7 @@
 
       </a>
 
-      <a
-        routerLink="/listar-propietarios"
-        (click)="closeSidebar()"
+      <a routerLink="/listar-propietarios" (click)="closeSidebar()"
         class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
 
         <i class="fa-solid fa-motorcycle text-sm"></i>
@@ -81,8 +71,115 @@
 
     </nav>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- FOOTER -->
     <div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="mb-4 flex items-center gap-3">
+
+        <!-- Avatar -->
+        <div *ngIf="user"
+          class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold">
+
+          <!-- Foto -->
+          <img *ngIf="user?.photoURL" [src]="user?.photoURL" class="h-full w-full object-cover" />
+
+          <!-- Inicial -->
+          <span *ngIf="!user?.photoURL">
+
+            {{ user?.displayName?.charAt(0) }}
+
+          </span>
+
+        </div>
+
+        <!-- Información usuario -->
+        <div class="min-w-0">
+
+          <p class="truncate text-sm font-semibold text-white">
+
+            <!-- {{ user?.displayName }} --> {{ user?.displayName || githubUsername || user?.email }}
+
+          </p>
+
+          <p class="truncate text-xs text-zinc-400">
+
+            {{ user?.email }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <button (click)="cerrarSesion()"
         class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700">
