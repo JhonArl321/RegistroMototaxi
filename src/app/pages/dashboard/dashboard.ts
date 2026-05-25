@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -12,7 +11,7 @@ import { AuthService } from '../../services/auth';
 
 export class Dashboard {
 
-  // AuthService
+  // inyecta el servicio de autenticion
   authService = inject(AuthService);
 
 }

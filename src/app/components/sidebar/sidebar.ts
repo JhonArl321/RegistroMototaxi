@@ -6,13 +6,9 @@ import {
   inject
 
 } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
 import { RouterLink } from '@angular/router';
-
 import { Router } from '@angular/router';
-
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -27,10 +23,8 @@ import { AuthService } from '../../services/auth';
 
 export class SidebarComponent {
 
-  // Router
+  // inyeccion de servicios necesarios
   router = inject(Router);
-
-  // AuthService
   authService = inject(AuthService);
 
   // Estado sidebar
@@ -41,11 +35,8 @@ export class SidebarComponent {
 
 
   closeSidebar() {
-
     this.close.emit();
-
   }
-
 
   async cerrarSesion(){
 

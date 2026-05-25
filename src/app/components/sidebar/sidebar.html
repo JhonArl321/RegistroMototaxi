@@ -72,74 +72,23 @@
     </nav>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- FOOTER -->
     <div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
       <div class="mb-4 flex items-center gap-3">
 
         <!-- Avatar -->
-        <div *ngIf="authService.user"
+        <div *ngIf="authService.googleUsername"
           class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold">
 
           <!-- Foto -->
-          <img *ngIf="authService.user.photoURL" [src]="authService.user.photoURL" class="h-full w-full object-cover" />
+          <img *ngIf="authService.googleUsername.photoURL" [src]="authService.googleUsername.photoURL" class="h-full w-full object-cover" />
 
           <!-- Inicial -->
-          <span *ngIf="!authService.user.photoURL">
+          <span *ngIf="!authService.googleUsername.photoURL">
 
-            {{ authService.user.displayName?.charAt(0) }}
+            {{ authService.googleUsername.displayName?.charAt(0) }}
 
           </span>
 
@@ -152,9 +101,9 @@
           <p class="truncate text-sm font-semibold text-white">
 
             {{
-            authService.user?.displayName
+            authService.googleUsername?.displayName
             || authService.githubUsername
-            || authService.user?.email
+            || authService.googleUsername?.email
             }}
 
           </p>
@@ -162,28 +111,13 @@
           <!-- Correo -->
           <p class="truncate text-xs text-zinc-400">
 
-            {{ authService.user?.email }}
+            {{ authService.googleUsername?.email }}
 
           </p>
 
         </div>
 
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <button (click)="cerrarSesion()"
         class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700">

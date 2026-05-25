@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 
 import {
+  //la instancia de autenticación de Firebase
   Auth,
+  //proveedor para login con Google.
   signInWithPopup,
+  //proveedor para login con GitHub
   GoogleAuthProvider,
+  //abre el popup para iniciar sesión
   GithubAuthProvider,
+  //cerrar sesión.
   signOut,
+  //detectar cambios de autenticación
   onAuthStateChanged,
+  //tipo de usuario autenticado.
   User
 
 } from '@angular/fire/auth';
@@ -17,8 +24,8 @@ import {
 
 export class AuthService {
 
-  // Usuario autenticado
-  user: User | null = null;
+  // Usuario autenticado con Goolge
+  googleUsername: User | null = null;
 
   // Username de GitHub
   githubUsername = '';
@@ -31,7 +38,7 @@ export class AuthService {
       if(usuario){
 
         // Guarda usuario
-        this.user = usuario;
+        this.googleUsername= usuario;
 
         // Obtiene username GitHub
         this.githubUsername =
@@ -65,9 +72,7 @@ export class AuthService {
 
   // Logout
   logout() {
-
     return signOut(this.auth);
-
   }
 
 }
