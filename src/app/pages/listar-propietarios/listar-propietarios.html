@@ -1,4 +1,4 @@
-<div class="p-8">
+<div class="rounded-3xl bg-gray-100 p-8 shadow-sm">
 
   <!-- Encabezado -->
   <div class="mb-8">
@@ -14,20 +14,13 @@
   </div>
 
   <!-- Spinner -->
-  <div
-    *ngIf="loading"
-    class="flex justify-center py-16">
+  <div *ngIf="loading" class="flex justify-center py-16">
 
-    <div
-      class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-gray-700">
-    </div>
 
   </div>
 
   <!-- Tabla -->
-  <div
-    *ngIf="!loading"
-    class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+  <div *ngIf="!loading" class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
 
     <div class="overflow-x-auto">
 
@@ -77,15 +70,12 @@
         <!-- Datos -->
         <tbody class="divide-y divide-gray-100 bg-white">
 
-          <tr
-            *ngFor="let moto of mototaxis"
-            class="transition hover:bg-gray-50">
+          <tr *ngFor="let moto of mototaxis" class="transition hover:bg-gray-50">
 
             <!-- Código -->
             <td class="whitespace-nowrap px-6 py-4">
 
-              <span
-                class="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
+              <span class="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
 
                 {{ moto.codigo }}
 
@@ -116,8 +106,7 @@
             <!-- Color -->
             <td class="px-6 py-4">
 
-              <span
-                class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+              <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
 
                 {{ moto.color }}
 
@@ -128,9 +117,7 @@
             <!-- Seguro -->
             <td class="px-6 py-4">
 
-              <span
-                class="rounded-full px-3 py-1 text-xs font-semibold"
-                [ngClass]="{
+              <span class="rounded-full px-3 py-1 text-xs font-semibold" [ngClass]="{
                   'bg-green-100 text-green-700':
                   moto.seguroVida === 'Si',
 

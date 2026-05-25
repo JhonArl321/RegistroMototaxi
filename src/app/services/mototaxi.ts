@@ -1,10 +1,11 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject} from '@angular/core';
 
 import {
   Firestore,
   collection,
   addDoc,
   getDocs
+ 
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -14,7 +15,6 @@ import {
 export class MototaxiService {
 
   firestore = inject(Firestore);
-
   // Guardar mototaxi
   async guardarMototaxi(data: any) {
 
@@ -40,26 +40,62 @@ export class MototaxiService {
   }
 
 
-async obtenerMototaxis() {
+  async obtenerMototaxis() {
 
-  // Referencia colección
-  const mototaxisRef = collection(
-    this.firestore,
-    'mototaxis'
-  );
+    // Referencia colección
+    const mototaxisRef = collection(
+      this.firestore,
+      'mototaxis'
+    );
 
-  // Obtener documentos
-  const snapshot = await getDocs(mototaxisRef);
+    // Obtener documentos
+    const snapshot = await getDocs(mototaxisRef);
 
-  // Retornar arreglo
-  return snapshot.docs.map(doc => ({
+    // Retornar arreglo
+    return snapshot.docs.map(doc => ({
 
-    id: doc.id,
+      id: doc.id,
 
-    ...doc.data()
+      ...doc.data()
 
-  }));
+    }));
 
-}
+  }
+
+
+  // TOTAL MOTOTAXIS
+  async totalMototaxis() {
+
+    const mototaxis: any[] =
+      await this.obtenerMototaxis();
+
+    return mototaxis.length;
+
+  }
+
+  // TOTAL CON SEGURO
+  async totalConSeguro() {
+
+    const mototaxis: any[] =
+      await this.obtenerMototaxis();
+
+    return mototaxis.filter(
+      m => m.seguroVida === true
+    ).length;
+
+  }
+
+  // TOTAL SIN SEGURO
+  async totalSinSeguro() {
+
+    const mototaxis: any[] =
+      await this.obtenerMototaxis();
+
+    return mototaxis.filter(
+      m => m.seguroVida === false
+    ).length;
+
+   
+  }
 
 }
