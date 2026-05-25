@@ -4,7 +4,8 @@ import {
   Firestore,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  deleteDoc
  
 } from '@angular/fire/firestore';
 
@@ -100,3 +101,6 @@ export class MototaxiService {
   }
 
 }
+
+
+
