@@ -115,19 +115,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
       <div class="mb-4 flex items-center gap-3">
 
         <!-- Avatar -->
-        <div *ngIf="user"
+        <div *ngIf="authService.user"
           class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold">
 
           <!-- Foto -->
-          <img *ngIf="user?.photoURL" [src]="user?.photoURL" class="h-full w-full object-cover" />
+          <img *ngIf="authService.user.photoURL" [src]="authService.user.photoURL" class="h-full w-full object-cover" />
 
           <!-- Inicial -->
-          <span *ngIf="!user?.photoURL">
+          <span *ngIf="!authService.user.photoURL">
 
-            {{ user?.displayName?.charAt(0) }}
+            {{ authService.user.displayName?.charAt(0) }}
 
           </span>
 
@@ -136,35 +148,27 @@
         <!-- Información usuario -->
         <div class="min-w-0">
 
+          <!-- Nombre -->
           <p class="truncate text-sm font-semibold text-white">
 
-            <!-- {{ user?.displayName }} --> {{ user?.displayName || githubUsername || user?.email }}
+            {{
+            authService.user?.displayName
+            || authService.githubUsername
+            || authService.user?.email
+            }}
 
           </p>
 
+          <!-- Correo -->
           <p class="truncate text-xs text-zinc-400">
 
-            {{ user?.email }}
+            {{ authService.user?.email }}
 
           </p>
 
         </div>
 
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

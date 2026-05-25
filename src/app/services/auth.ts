@@ -1,62 +1,71 @@
 import { Injectable } from '@angular/core';
-import { inject } from '@angular/core';
 
-// Importaciones necesarias de Firebase Authentication
 import {
-
-  // Servicio principal de autenticación
   Auth,
-
-  // Método para iniciar sesión usando una ventana emergente
   signInWithPopup,
-
-  // Proveedor de autenticación con Google
   GoogleAuthProvider,
-
-  // Proveedor de autenticación con GitHub
   GithubAuthProvider,
-
-  // Método para cerrar sesión
-  signOut
+  signOut,
+  onAuthStateChanged,
+  User
 
 } from '@angular/fire/auth';
 
-
-// Hace que este servicio pueda usarse en toda la aplicación
 @Injectable({
   providedIn: 'root',
 })
 
 export class AuthService {
 
+  // Usuario autenticado
+  user: User | null = null;
 
-  //inyeccion del servicio de Auth de Firebase
-  auth = inject(Auth);
+  // Username de GitHub
+  githubUsername = '';
 
+  constructor(private auth: Auth) {
 
+    // Detecta cambios de autenticación
+    onAuthStateChanged(this.auth, (usuario) => {
 
-  // Método para iniciar sesión con Google
+      if(usuario){
+
+        // Guarda usuario
+        this.user = usuario;
+
+        // Obtiene username GitHub
+        this.githubUsername =
+          (usuario as any).reloadUserInfo.screenName;
+
+      }
+
+    });
+
+  }
+
+  // Login Google
   loginGoogle() {
 
-    // Abre una ventana emergente para autenticarse con Google
-    return signInWithPopup(this.auth, new GoogleAuthProvider());
+    return signInWithPopup(
+      this.auth,
+      new GoogleAuthProvider()
+    );
 
   }
 
-
-
-  // Método para iniciar sesión con GitHub
+  // Login GitHub
   loginGithub() {
 
-    // Abre una ventana emergente para autenticarse con GitHub
-    return signInWithPopup(this.auth, new GithubAuthProvider());
+    return signInWithPopup(
+      this.auth,
+      new GithubAuthProvider()
+    );
 
   }
 
-  // Método para cerrar sesión
+  // Logout
   logout() {
 
-    // Cierra la sesión del usuario actual
     return signOut(this.auth);
 
   }
