@@ -80,7 +80,7 @@ export class MototaxiService {
       await this.obtenerMototaxis();
 
     return mototaxis.filter(
-      m => m.seguroVida === true
+      m => m.seguroVida === "Si"
     ).length;
 
   }
@@ -90,9 +90,10 @@ export class MototaxiService {
 
     const mototaxis: any[] =
       await this.obtenerMototaxis();
+      console.log(mototaxis)
 
     return mototaxis.filter(
-      m => m.seguroVida === false
+      m => m.seguroVida === "No"
     ).length;
 
    
