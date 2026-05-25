@@ -62,7 +62,4 @@ async obtenerMototaxis() {
 
 }
 
-
-
-
 }

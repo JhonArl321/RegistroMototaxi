@@ -31,7 +31,7 @@ export class AuthService {
 
 
   //inyeccion del servicio de Auth de Firebase
-  autenticar = inject(Auth);
+  auth = inject(Auth);
 
 
 
@@ -39,7 +39,7 @@ export class AuthService {
   loginGoogle() {
 
     // Abre una ventana emergente para autenticarse con Google
-    return signInWithPopup(this.autenticar, new GoogleAuthProvider());
+    return signInWithPopup(this.auth, new GoogleAuthProvider());
 
   }
 
@@ -49,7 +49,7 @@ export class AuthService {
   loginGithub() {
 
     // Abre una ventana emergente para autenticarse con GitHub
-    return signInWithPopup(this.autenticar, new GithubAuthProvider());
+    return signInWithPopup(this.auth, new GithubAuthProvider());
 
   }
 
@@ -57,7 +57,7 @@ export class AuthService {
   logout() {
 
     // Cierra la sesión del usuario actual
-    return signOut(this.autenticar);
+    return signOut(this.auth);
 
   }
 

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthGithub } from './auth-github';
+import { AuthGithub} from './auth-github';
 
 describe('AuthGithub', () => {
   let component: AuthGithub;
