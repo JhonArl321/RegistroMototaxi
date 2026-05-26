@@ -16,186 +16,171 @@
   <!-- SPINNER -->
   @if (loading) {
 
-    <div
-      class="flex items-center justify-center py-24"
-    >
+  <div class="flex items-center justify-center py-24">
 
-      <div
-        class="h-14 w-14 animate-spin rounded-full border-4 border-gray-300 border-t-zinc-700"
-      >
-      </div>
-
+    <div class="h-14 w-14 animate-spin rounded-full border-4 border-gray-300 border-t-zinc-700">
     </div>
+
+  </div>
 
   }
 
   <!-- TABLA -->
   @if (!loading) {
 
-    <div
-      class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
-    >
+  <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
 
-      <div class="overflow-x-auto">
+    <div class="overflow-x-auto">
 
-        <table class="min-w-full divide-y divide-gray-200">
+      <table class="min-w-full divide-y divide-gray-200">
 
-          <!-- Encabezados -->
-          <thead class="bg-gray-50">
+        <!-- Encabezados -->
+        <thead class="bg-gray-50">
 
-            <tr>
+          <tr>
 
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Código
-              </th>
+            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Código
+            </th>
 
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Nombres
-              </th>
+            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Nombres
+            </th>
 
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Apellidos
-              </th>
+            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Apellidos
+            </th>
 
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                DPI
-              </th>
+            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              DPI
+            </th>
 
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Modelo
-              </th>
+            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Modelo
+            </th>
 
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Color
-              </th>
+            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Color
+            </th>
 
-              <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Seguro
-              </th>
+            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Seguro
+            </th>
 
-              <th class="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Acciones
-              </th>
+            <th class="px-6 py-4 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Acciones
+            </th>
 
-            </tr>
+          </tr>
 
-          </thead>
+        </thead>
 
-          <!-- Datos -->
-          <tbody class="divide-y divide-gray-100 bg-white">
+        <!-- Datos -->
+        <tbody class="divide-y divide-gray-100 bg-white">
 
-            <tr
-              *ngFor="let moto of mototaxis"
-              class="transition hover:bg-gray-50"
-            >
+          <tr *ngFor="let moto of mototaxis" class="transition hover:bg-gray-50">
 
-              <!-- Código -->
-              <td class="whitespace-nowrap px-6 py-4">
+            <!-- Código -->
+            <td class="whitespace-nowrap px-6 py-4">
 
-                <span class="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
+              <span class="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
 
-                  {{ moto.codigo }}
+                {{ moto.codigo }}
 
-                </span>
+              </span>
 
-              </td>
+            </td>
 
-              <!-- Nombres -->
-              <td class="px-6 py-4 text-sm font-medium text-gray-800">
+            <!-- Nombres -->
+            <td class="px-6 py-4 text-sm font-medium text-gray-800">
 
-                {{ moto.nombres }}
+              {{ moto.nombres }}
 
-              </td>
+            </td>
 
-              <!-- Apellidos -->
-              <td class="px-6 py-4 text-sm text-gray-700">
+            <!-- Apellidos -->
+            <td class="px-6 py-4 text-sm text-gray-700">
 
-                {{ moto.apellidos }}
+              {{ moto.apellidos }}
 
-              </td>
+            </td>
 
-              <!-- DPI -->
-              <td class="px-6 py-4 text-sm text-gray-600">
+            <!-- DPI -->
+            <td class="px-6 py-4 text-sm text-gray-600">
 
-                {{ moto.dpi }}
+              {{ moto.dpi }}
 
-              </td>
+            </td>
 
-              <!-- Modelo -->
-              <td class="px-6 py-4 text-sm text-gray-700">
+            <!-- Modelo -->
+            <td class="px-6 py-4 text-sm text-gray-700">
 
-                {{ moto.modelo }}
+              {{ moto.modelo }}
 
-              </td>
+            </td>
 
-              <!-- Color -->
-              <td class="px-6 py-4">
+            <!-- Color -->
+            <td class="px-6 py-4">
 
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+              <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
 
-                  {{ moto.color }}
+                {{ moto.color }}
 
-                </span>
+              </span>
 
-              </td>
+            </td>
 
-              <!-- Seguro -->
-              <td class="px-6 py-4">
+            <!-- Seguro -->
+            <td class="px-6 py-4">
 
-                <span
-                  class="rounded-full px-3 py-1 text-xs font-semibold"
-                  [ngClass]="{
+              <span class="rounded-full px-3 py-1 text-xs font-semibold" [ngClass]="{
                     'bg-green-100 text-green-700':
                     moto.seguroVida === 'Si',
 
                     'bg-red-100 text-red-700':
                     moto.seguroVida === 'No'
-                  }"
-                >
+                  }">
 
-                  {{ moto.seguroVida }}
+                {{ moto.seguroVida }}
 
-                </span>
+              </span>
 
-              </td>
+            </td>
 
-              <!-- Acciones -->
-              <td class="px-6 py-4">
+            <!-- Acciones -->
+            <td class="px-6 py-4">
 
-                <div class="flex items-center justify-center gap-2">
+              <div class="flex items-center justify-center gap-2">
 
-                  <!-- Editar -->
-                  <button
-                    class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
-                  >
+                <!-- Editar -->
+                <button (click)="editar(moto)"
+                  class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100">
 
-                    Editar
+                  Editar
 
-                  </button>
+                </button>
 
-                  <!-- Eliminar -->
-                  <button
-                    (click)="eliminar(moto.id)"
-                    class="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-100"
-                  >
+                <!-- Eliminar -->
+                <button (click)="eliminar(moto.id)"
+                  class="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-100">
 
-                    Eliminar
+                  Eliminar
 
-                  </button>
+                </button>
 
-                </div>
+              </div>
 
-              </td>
+            </td>
 
-            </tr>
+          </tr>
 
-          </tbody>
+        </tbody>
 
-        </table>
-
-      </div>
+      </table>
 
     </div>
+
+  </div>
 
   }
 

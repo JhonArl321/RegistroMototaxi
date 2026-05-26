@@ -6,7 +6,8 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
-  doc
+  doc,
+  getDoc
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -158,5 +159,24 @@ export class MototaxiService {
     await deleteDoc(documento);
 
   }
+
+
+
+async obtenerPorId(id: string): Promise<any> {
+
+  const docRef = doc(
+    this.firestore,
+    'mototaxis',
+    id
+  );
+
+  const respuesta = await getDoc(docRef);
+
+  return {
+    id: respuesta.id,
+    ...respuesta.data()
+  };
+
+}
 
 }

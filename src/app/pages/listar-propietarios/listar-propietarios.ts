@@ -8,6 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { MototaxiService } from '../../services/mototaxi';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-propietarios',
@@ -26,11 +27,12 @@ export class ListarPropietarios implements OnInit {
 
   // Servicio
   motoService = inject(MototaxiService);
+  router = inject(Router)
 
   // DetectChanges
   constructor(
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
   async ngOnInit() {
 
@@ -45,7 +47,7 @@ export class ListarPropietarios implements OnInit {
 
     }
 
-    catch(error) {
+    catch (error) {
 
       console.log(error);
 
@@ -77,6 +79,25 @@ export class ListarPropietarios implements OnInit {
 
     // ACTUALIZAR VISTA
     this.cd.detectChanges();
+
+  }
+
+  async editar(moto: any) {
+
+    const confirmar = confirm(
+      '¿Desea editar este registro?'
+    );
+
+    if (!confirmar) return;
+
+    this.router.navigate(
+      ['editar-propietario'],
+      {
+        queryParams: {
+          id: moto.id
+        }
+      }
+    );
 
   }
 

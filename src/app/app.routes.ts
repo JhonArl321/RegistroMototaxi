@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { RegistrarPropietarios } from './pages/registrar-propietarios/registrar-propietarios';
 import { ListarPropietarios } from './pages/listar-propietarios/listar-propietarios';
+import { EditarPropietarios } from './pages/editar-propietarios/editar-propietarios';
 
 export const routes: Routes = [
 
@@ -33,9 +34,12 @@ export const routes: Routes = [
     {
       path: 'listar-propietarios',
       component: ListarPropietarios,
-    }
+    },
 
-
+    {
+      path: 'editar-propietario',
+      component: EditarPropietarios,
+  }
 
 
     ]
