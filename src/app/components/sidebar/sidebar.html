@@ -18,10 +18,9 @@
     <!-- LOGO -->
     <div class="flex items-center gap-3 border-b border-zinc-800 p-5">
 
-      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-700 font-bold text-white">
+      <div class="flex h-15 w-15 items-center justify-center overflow-hidden rounded-full bg-zinc-700">
 
-
-        M
+        <img src="mototaxi.webp" alt="mototaxiLogo" class="h-full w-full object-cover">
 
       </div>
 
@@ -83,7 +82,8 @@
           class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold">
 
           <!-- Foto -->
-          <img *ngIf="authService.googleUsername.photoURL" [src]="authService.googleUsername.photoURL" class="h-full w-full object-cover" />
+          <img *ngIf="authService.googleUsername.photoURL" [src]="authService.googleUsername.photoURL"
+            class="h-full w-full object-cover" />
 
           <!-- Inicial -->
           <span *ngIf="!authService.googleUsername.photoURL">
