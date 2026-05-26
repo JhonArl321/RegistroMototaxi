@@ -3,12 +3,14 @@ import {
   EventEmitter,
   Input,
   Output,
-  inject
-
+  inject,
+  ChangeDetectorRef
 } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -23,22 +25,41 @@ import { AuthService } from '../../services/auth';
 
 export class SidebarComponent {
 
-  // inyeccion de servicios necesarios
+  // Servicios
   router = inject(Router);
   authService = inject(AuthService);
 
-  // Estado sidebar
+  // Spinner usuario
+  loadingUser = true;
+
+  // Sidebar
   @Input() sidebarOpen = false;
 
-  // Evento cerrar sidebar
+  // Evento cerrar
   @Output() close = new EventEmitter<void>();
 
+  constructor(
+    private cd: ChangeDetectorRef
+  ) {
 
-  closeSidebar() {
-    this.close.emit();
+    // Esperar restauración auth
+    setTimeout(() => {
+
+      this.loadingUser = false;
+
+      this.cd.detectChanges();
+
+    }, 1000);
+
   }
 
-  async cerrarSesion(){
+  closeSidebar() {
+
+    this.close.emit();
+
+  }
+
+  async cerrarSesion() {
 
     await this.authService.logout();
 

@@ -72,61 +72,87 @@
 
 
     <!-- FOOTER -->
-    <div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
+  <!-- FOOTER -->
+<div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
 
+  <!-- LOADING -->
+  @if (loadingUser) {
 
-      <div class="mb-4 flex items-center gap-3">
+    <div class="flex items-center justify-center py-6">
 
-        <!-- Avatar -->
-        <div *ngIf="authService.googleUsername"
-          class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold">
+      <div
+        class="h-10 w-10 animate-spin rounded-full border-4 border-zinc-600 border-t-white"
+      >
+      </div>
 
-          <!-- Foto -->
-          <img *ngIf="authService.googleUsername.photoURL" [src]="authService.googleUsername.photoURL"
-            class="h-full w-full object-cover" />
+    </div>
 
-          <!-- Inicial -->
-          <span *ngIf="!authService.googleUsername.photoURL">
+  }
 
-            {{ authService.googleUsername.displayName?.charAt(0) }}
+  <!-- USUARIO -->
+  @if (!loadingUser) {
 
-          </span>
+    <div class="mb-4 flex items-center gap-3">
 
-        </div>
+      <!-- Avatar -->
+      <div
+        *ngIf="authService.googleUsername"
+        class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold"
+      >
 
-        <!-- Información usuario -->
-        <div class="min-w-0">
+        <!-- Foto -->
+        <img
+          *ngIf="authService.googleUsername.photoURL"
+          [src]="authService.googleUsername.photoURL"
+          class="h-full w-full object-cover"
+        />
 
-          <!-- Nombre -->
-          <p class="truncate text-sm font-semibold text-white">
+        <!-- Inicial -->
+        <span *ngIf="!authService.googleUsername.photoURL">
 
-            {{
-            authService.googleUsername?.displayName
-            || authService.githubUsername
-            || authService.googleUsername?.email
-            }}
+          {{ authService.googleUsername.displayName?.charAt(0) }}
 
-          </p>
-
-          <!-- Correo -->
-          <p class="truncate text-xs text-zinc-400">
-
-            {{ authService.googleUsername?.email }}
-
-          </p>
-
-        </div>
+        </span>
 
       </div>
 
-      <button (click)="cerrarSesion()"
-        class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700">
+      <!-- Información usuario -->
+      <div class="min-w-0">
 
-        Cerrar sesión
+        <!-- Nombre -->
+        <p class="truncate text-sm font-semibold text-white">
 
-      </button>
+          {{
+            authService.googleUsername?.displayName
+            || authService.githubUsername
+            || authService.googleUsername?.email
+          }}
+
+        </p>
+
+        <!-- Correo -->
+        <p class="truncate text-xs text-zinc-400">
+
+          {{ authService.googleUsername?.email }}
+
+        </p>
+
+      </div>
 
     </div>
+
+    <button
+      (click)="cerrarSesion()"
+      class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700"
+    >
+
+      Cerrar sesión
+
+    </button>
+
+  }
+
+</div>
 
   </aside>
 
