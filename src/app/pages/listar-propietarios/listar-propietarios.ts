@@ -43,7 +43,8 @@ export class ListarPropietarios implements OnInit {
     try {
 
       this.mototaxis =
-        await this.motoService.obtenerMototaxis();
+       this.mototaxis =
+  await this.motoService.actualizarCache();
 
       console.log(this.mototaxis);
 
