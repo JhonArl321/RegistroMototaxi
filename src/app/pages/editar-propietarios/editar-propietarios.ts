@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MototaxiService } from '../../services/mototaxi';
 import { inject } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -32,7 +34,8 @@ export class EditarPropietarios implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private router: Router
   ) { }
 
 
@@ -66,36 +69,77 @@ export class EditarPropietarios implements OnInit {
   }
 
 
-
-
-
-
   async actualizarMototaxi() {
 
-    const confirmar = confirm(
-      '¿Desea actualizar este registro?'
-    );
+    const confirmar = await Swal.fire({
 
-    if (!confirmar) return;
+      icon: 'question',
+      title: 'Actualizar registro',
+      text: '¿Desea guardar los cambios?',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#4f46e5'
 
-    await this.motoService.actualizarMototaxi(
+    });
 
-      this.id,
+    if (!confirmar.isConfirmed) return;
 
-      {
-        nombres: this.nombres,
-        apellidos: this.apellidos,
-        dpi: this.dpi,
-        domicilio: this.domicilio,
-        modelo: this.modelo,
-        color: this.color,
-        seguroVida: this.seguroVida,
-        codigo: this.codigo
-      }
+    try {
 
-    );
+      await this.motoService.actualizarMototaxi(
 
-    alert('Registro actualizado');
+        this.id,
+
+        {
+          nombres: this.nombres.trim(),
+          apellidos: this.apellidos.trim(),
+          dpi: this.dpi.trim(),
+          domicilio: this.domicilio.trim(),
+          modelo: this.modelo,
+          color: this.color.trim(),
+          seguroVida: this.seguroVida,
+          codigo: this.codigo
+        }
+
+      );
+
+      // ACTUALIZAR CACHE
+      await this.motoService.actualizarCache();
+
+      // MENSAJE
+      await Swal.fire({
+
+        icon: 'success',
+        title: 'Registro actualizado',
+        text: 'La información fue actualizada correctamente',
+        confirmButtonColor: '#4f46e5'
+
+      });
+
+      // REDIRECCIONAR
+      this.router.navigate([
+        '/listar-propietarios'
+      ]);
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+      Swal.fire({
+
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo actualizar'
+
+      });
+
+    }
 
   }
+
+
+
 }
