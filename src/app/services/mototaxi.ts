@@ -4,7 +4,9 @@ import {
   Firestore,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  deleteDoc,
+  doc
  
 } from '@angular/fire/firestore';
 
@@ -38,7 +40,6 @@ export class MototaxiService {
     return `M ${numero} ${letra1}${letra2}${letra3}`;
 
   }
-
 
   async obtenerMototaxis() {
 
@@ -98,5 +99,17 @@ export class MototaxiService {
 
    
   }
+
+
+  async eliminarMototaxi(id: string) {
+
+  const documento = doc(
+    this.firestore,
+    `mototaxis/${id}`
+  );
+
+  await deleteDoc(documento);
+
+}
 
 }
