@@ -30,6 +30,8 @@ export class EditarPropietarios implements OnInit {
 
   id = '';
 
+
+
   motoService = inject(MototaxiService);
 
   constructor(
@@ -140,6 +142,11 @@ export class EditarPropietarios implements OnInit {
 
   }
 
-
+  cancelar() {
+    this.router.navigate([
+      '/listar-propietarios'
+    ])
+  }
 
 }
+
