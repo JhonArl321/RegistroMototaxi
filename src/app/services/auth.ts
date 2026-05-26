@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 
 import {
-  //la instancia de autenticación de Firebase
+
+  // Instancia de autenticación Firebase
   Auth,
-  //proveedor para login con Google.
+
+  // Login popup
   signInWithPopup,
-  //proveedor para login con GitHub
+
+  // Providers
   GoogleAuthProvider,
-  //abre el popup para iniciar sesión
   GithubAuthProvider,
-  //cerrar sesión.
+
+  // Logout
   signOut,
-  //detectar cambios de autenticación
+
+  // Detectar cambios auth
   onAuthStateChanged,
-  //tipo de usuario autenticado.
+
+  // Tipo usuario
   User
 
 } from '@angular/fire/auth';
@@ -24,25 +29,94 @@ import {
 
 export class AuthService {
 
-  // Usuario autenticado con Goolge
+  // Usuario Firebase
   googleUsername: User | null = null;
 
-  // Username de GitHub
+  // Username GitHub
   githubUsername = '';
+
+  // Foto usuario
+  userPhoto = '';
+
+  // Correo usuario
+  userEmail = '';
 
   constructor(private auth: Auth) {
 
-    // Detecta cambios de autenticación
+    // ================================
+    // CARGAR CACHE
+    // ================================
+    if (typeof localStorage !== 'undefined') {
+
+      const usuarioGuardado =
+        localStorage.getItem('usuario');
+
+      if (usuarioGuardado) {
+
+        const usuario =
+          JSON.parse(usuarioGuardado);
+
+        this.githubUsername =
+          usuario.githubUsername || '';
+
+        this.userPhoto =
+          usuario.userPhoto || '';
+
+        this.userEmail =
+          usuario.userEmail || '';
+
+      }
+
+    }
+
+    // ================================
+    // FIREBASE AUTH
+    // ================================
     onAuthStateChanged(this.auth, (usuario) => {
 
-      if(usuario){
+      if (usuario) {
 
-        // Guarda usuario
-        this.googleUsername= usuario;
+        // Guardar usuario Firebase
+        this.googleUsername = usuario;
 
-        // Obtiene username GitHub
+        // Username GitHub
         this.githubUsername =
-          (usuario as any).reloadUserInfo.screenName;
+          (usuario as any)
+          .reloadUserInfo?.screenName || '';
+
+        // Foto
+        this.userPhoto =
+          usuario.photoURL || '';
+
+        // Correo
+        this.userEmail =
+          usuario.email || '';
+
+        // ================================
+        // GUARDAR CACHE
+        // ================================
+        if (typeof localStorage !== 'undefined') {
+
+          localStorage.setItem(
+
+            'usuario',
+
+            JSON.stringify({
+
+              githubUsername:
+                this.githubUsername,
+
+              userPhoto:
+                this.userPhoto,
+
+              userEmail:
+                this.userEmail
+
+            })
+
+          );
+
+        }
 
       }
 
@@ -50,7 +124,9 @@ export class AuthService {
 
   }
 
-  // Login Google
+  // ================================
+  // LOGIN GOOGLE
+  // ================================
   loginGoogle() {
 
     return signInWithPopup(
@@ -60,7 +136,9 @@ export class AuthService {
 
   }
 
-  // Login GitHub
+  // ================================
+  // LOGIN GITHUB
+  // ================================
   loginGithub() {
 
     return signInWithPopup(
@@ -70,9 +148,20 @@ export class AuthService {
 
   }
 
-  // Logout
+  // ================================
+  // LOGOUT
+  // ================================
   logout() {
+
+    // Limpiar cache
+    if (typeof localStorage !== 'undefined') {
+
+      localStorage.removeItem('usuario');
+
+    }
+
     return signOut(this.auth);
+
   }
 
 }

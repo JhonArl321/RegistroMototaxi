@@ -1,26 +1,43 @@
 <!-- =========================================================
  FONDO OSCURO RESPONSIVE
 ========================================================= -->
-<div *ngIf="sidebarOpen" (click)="closeSidebar()" class="fixed inset-0 z-40 bg-black/50 lg:hidden">
+<div
+  *ngIf="sidebarOpen"
+  (click)="closeSidebar()"
+  class="fixed inset-0 z-40 bg-black/50 lg:hidden"
+>
 </div>
 
 <!-- =========================================================
  CONTENEDOR SIDEBAR
 ========================================================= -->
-<div class="fixed left-0 top-0 z-50 transition-transform duration-300 lg:translate-x-0"
-  [class.translate-x-0]="sidebarOpen" [class.-translate-x-full]="!sidebarOpen">
+<div
+  class="fixed left-0 top-0 z-50 transition-transform duration-300 lg:translate-x-0"
+  [class.translate-x-0]="sidebarOpen"
+  [class.-translate-x-full]="!sidebarOpen"
+>
 
   <!-- =========================================================
    SIDEBAR PRINCIPAL
   ========================================================= -->
-  <aside class="relative flex min-h-screen w-72 flex-col border-r border-zinc-800 bg-zinc-900 text-zinc-200">
+  <aside
+    class="relative flex min-h-screen w-72 flex-col border-r border-zinc-800 bg-zinc-900 text-zinc-200"
+  >
 
-    <!-- LOGO -->
+    <!-- =========================================================
+     LOGO
+    ========================================================= -->
     <div class="flex items-center gap-3 border-b border-zinc-800 p-5">
 
-      <div class="flex h-15 w-15 items-center justify-center overflow-hidden rounded-full bg-zinc-700">
+      <div
+        class="flex h-15 w-15 items-center justify-center overflow-hidden rounded-full bg-zinc-700"
+      >
 
-        <img src="mototaxi.webp" alt="mototaxiLogo" class="h-full w-full object-cover">
+        <img
+          src="mototaxi.webp"
+          alt="mototaxiLogo"
+          class="h-full w-full object-cover"
+        >
 
       </div>
 
@@ -38,11 +55,17 @@
 
     </div>
 
-    <!-- NAVEGACIÓN -->
+    <!-- =========================================================
+     NAVEGACIÓN
+    ========================================================= -->
     <nav class="space-y-1 p-4">
 
-      <a routerLink="/dashboard" (click)="closeSidebar()"
-        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
+      <!-- Dashboard -->
+      <a
+        routerLink="/dashboard"
+        (click)="closeSidebar()"
+        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800"
+      >
 
         <i class="fa-solid fa-house text-sm"></i>
 
@@ -50,8 +73,12 @@
 
       </a>
 
-      <a routerLink="/registrar-propietarios" (click)="closeSidebar()"
-        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
+      <!-- Registrar -->
+      <a
+        routerLink="/registrar-propietarios"
+        (click)="closeSidebar()"
+        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800"
+      >
 
         <i class="fa-solid fa-plus text-sm"></i>
 
@@ -59,8 +86,12 @@
 
       </a>
 
-      <a routerLink="/listar-propietarios" (click)="closeSidebar()"
-        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800">
+      <!-- Listar -->
+      <a
+        routerLink="/listar-propietarios"
+        (click)="closeSidebar()"
+        class="flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition hover:bg-zinc-800"
+      >
 
         <i class="fa-solid fa-motorcycle text-sm"></i>
 
@@ -70,89 +101,74 @@
 
     </nav>
 
+    <!-- =========================================================
+     FOOTER
+    ========================================================= -->
+    <div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
 
-    <!-- FOOTER -->
-  <!-- FOOTER -->
-<div class="absolute bottom-0 w-full border-t border-zinc-800 p-4">
+      <!-- Usuario -->
+      <div class="mb-4 flex items-center gap-3">
 
-  <!-- LOADING -->
-  @if (loadingUser) {
+        <!-- Avatar -->
+        <div
+          class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold"
+        >
 
-    <div class="flex items-center justify-center py-6">
+          <!-- Foto -->
+          <img
+            *ngIf="authService.userPhoto"
+            [src]="authService.userPhoto"
+            class="h-full w-full object-cover"
+          />
 
-      <div
-        class="h-10 w-10 animate-spin rounded-full border-4 border-zinc-600 border-t-white"
-      >
+          <!-- Inicial -->
+          <span *ngIf="!authService.userPhoto">
+
+            {{
+              authService.googleUsername?.displayName?.charAt(0)
+              || authService.githubUsername.charAt(0)
+            }}
+
+          </span>
+
+        </div>
+
+        <!-- Información usuario -->
+        <div class="min-w-0">
+
+          <!-- Nombre -->
+          <p class="truncate text-sm font-semibold text-white">
+
+            {{
+              authService.googleUsername?.displayName
+              || authService.githubUsername
+              || authService.userEmail
+            }}
+
+          </p>
+
+          <!-- Correo -->
+          <p class="truncate text-xs text-zinc-400">
+
+            {{ authService.userEmail }}
+
+          </p>
+
+        </div>
+
       </div>
+
+      <!-- Botón logout -->
+      <button
+        (click)="cerrarSesion()"
+        class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700"
+      >
+
+        Cerrar sesión
+
+      </button>
 
     </div>
-
-  }
-
-  <!-- USUARIO -->
-  @if (!loadingUser) {
-
-    <div class="mb-4 flex items-center gap-3">
-
-      <!-- Avatar -->
-      <div
-        *ngIf="authService.googleUsername"
-        class="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-indigo-600 text-white font-bold"
-      >
-
-        <!-- Foto -->
-        <img
-          *ngIf="authService.googleUsername.photoURL"
-          [src]="authService.googleUsername.photoURL"
-          class="h-full w-full object-cover"
-        />
-
-        <!-- Inicial -->
-        <span *ngIf="!authService.googleUsername.photoURL">
-
-          {{ authService.googleUsername.displayName?.charAt(0) }}
-
-        </span>
-
-      </div>
-
-      <!-- Información usuario -->
-      <div class="min-w-0">
-
-        <!-- Nombre -->
-        <p class="truncate text-sm font-semibold text-white">
-
-          {{
-            authService.googleUsername?.displayName
-            || authService.githubUsername
-            || authService.googleUsername?.email
-          }}
-
-        </p>
-
-        <!-- Correo -->
-        <p class="truncate text-xs text-zinc-400">
-
-          {{ authService.googleUsername?.email }}
-
-        </p>
-
-      </div>
-
-    </div>
-
-    <button
-      (click)="cerrarSesion()"
-      class="w-full rounded-lg bg-zinc-800 px-4 py-3 text-sm font-medium transition hover:bg-zinc-700"
-    >
-
-      Cerrar sesión
-
-    </button>
-
-  }
-
-</div>
 
   </aside>
 
