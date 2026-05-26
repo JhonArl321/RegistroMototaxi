@@ -20,16 +20,14 @@ export class ListarPropietarios implements OnInit {
 
   // Arreglo
   mototaxis: any[] = [];
-
   // Spinner
   loading = false;
-
   // Service
   motoService = inject(MototaxiService);
 
   constructor(
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
   async ngOnInit() {
 
@@ -59,5 +57,25 @@ export class ListarPropietarios implements OnInit {
     }
 
   }
+
+
+async eliminar(id: string) {
+
+  // Confirmar eliminación
+  const confirmar = confirm(
+    '¿Desea eliminar este registro?'
+  );
+
+  // Cancelar si el usuario no acepta
+  if (!confirmar) return;
+
+  // Eliminar en Firebase
+  await this.motoService.eliminarMototaxi(id);
+
+  // Recargar tabla
+  this.mototaxis =
+    await this.motoService.obtenerMototaxis();
+
+}
 
 }

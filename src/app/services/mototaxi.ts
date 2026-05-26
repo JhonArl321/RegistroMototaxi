@@ -1,12 +1,12 @@
-import { Injectable, inject} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import {
   Firestore,
   collection,
   addDoc,
   getDocs,
-  deleteDoc
- 
+  deleteDoc,
+  doc
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -16,6 +16,7 @@ import {
 export class MototaxiService {
 
   firestore = inject(Firestore);
+
   // Guardar mototaxi
   async guardarMototaxi(data: any) {
 
@@ -40,19 +41,15 @@ export class MototaxiService {
 
   }
 
-
   async obtenerMototaxis() {
 
-    // Referencia colección
     const mototaxisRef = collection(
       this.firestore,
       'mototaxis'
     );
 
-    // Obtener documentos
     const snapshot = await getDocs(mototaxisRef);
 
-    // Retornar arreglo
     return snapshot.docs.map(doc => ({
 
       id: doc.id,
@@ -62,7 +59,6 @@ export class MototaxiService {
     }));
 
   }
-
 
   // TOTAL MOTOTAXIS
   async totalMototaxis() {
@@ -91,16 +87,25 @@ export class MototaxiService {
 
     const mototaxis: any[] =
       await this.obtenerMototaxis();
-      console.log(mototaxis)
+
+    console.log(mototaxis);
 
     return mototaxis.filter(
       m => m.seguroVida === "No"
     ).length;
 
-   
+  }
+
+  // ELIMINAR MOTOTAXI
+  async eliminarMototaxi(id: string) {
+
+    const documento = doc(
+      this.firestore,
+      `mototaxis/${id}`
+    );
+
+    await deleteDoc(documento);
+
   }
 
 }
-
-
-
