@@ -1,7 +1,11 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  ChangeDetectorRef
+} from '@angular/core';
+
 import { AuthService } from '../../services/auth';
 import { MototaxiService } from '../../services/mototaxi';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -13,22 +17,52 @@ import { MototaxiService } from '../../services/mototaxi';
 
 export class Dashboard {
 
-  // inyecta el servicio de autenticion
+  // Servicios
   authService = inject(AuthService);
-  //inyectar el servicio de mototaxi
   motoService = inject(MototaxiService);
 
+  // Detectar cambios manualmente
+  constructor(
+    private cd: ChangeDetectorRef
+  ) {}
 
+  loading = true;
+  // Variables
   totalMototaxis = 0;
   totalConSeguro = 0;
   totalSinSeguro = 0;
 
-  async ngOnInit() {
+ async ngOnInit() {
 
-    this.totalMototaxis = await this.motoService.totalMototaxis();
-    this.totalConSeguro = await this.motoService.totalConSeguro();
-    this.totalSinSeguro = await this.motoService.totalSinSeguro();
+  this.loading = true;
+
+  try {
+
+    this.totalMototaxis =
+      await this.motoService.totalMototaxis();
+
+    this.totalConSeguro =
+      await this.motoService.totalConSeguro();
+
+    this.totalSinSeguro =
+      await this.motoService.totalSinSeguro();
 
   }
+
+  catch(error) {
+
+    console.log(error);
+
+  }
+
+  finally {
+
+    this.loading = false;
+
+    this.cd.detectChanges();
+
+  }
+
+}
 
 }
