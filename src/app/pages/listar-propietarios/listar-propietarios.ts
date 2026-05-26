@@ -18,16 +18,19 @@ import { MototaxiService } from '../../services/mototaxi';
 
 export class ListarPropietarios implements OnInit {
 
-  // Arreglo
+  // Datos
   mototaxis: any[] = [];
+
   // Spinner
-  loading = false;
-  // Service
+  loading = true;
+
+  // Servicio
   motoService = inject(MototaxiService);
 
+  // DetectChanges
   constructor(
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
   async ngOnInit() {
 
@@ -40,14 +43,15 @@ export class ListarPropietarios implements OnInit {
 
       console.log(this.mototaxis);
 
-      // IMPORTANTE
-      this.cd.detectChanges();
+    }
 
-    } catch (error) {
+    catch(error) {
 
       console.log(error);
 
-    } finally {
+    }
+
+    finally {
 
       this.loading = false;
 
@@ -58,24 +62,22 @@ export class ListarPropietarios implements OnInit {
 
   }
 
+  async eliminar(id: string) {
 
-async eliminar(id: string) {
+    const confirmar = confirm(
+      '¿Desea eliminar este registro?'
+    );
 
-  // Confirmar eliminación
-  const confirmar = confirm(
-    '¿Desea eliminar este registro?'
-  );
+    if (!confirmar) return;
 
-  // Cancelar si el usuario no acepta
-  if (!confirmar) return;
+    await this.motoService.eliminarMototaxi(id);
 
-  // Eliminar en Firebase
-  await this.motoService.eliminarMototaxi(id);
+    this.mototaxis =
+      await this.motoService.obtenerMototaxis();
 
-  // Recargar tabla
-  this.mototaxis =
-    await this.motoService.obtenerMototaxis();
+    // ACTUALIZAR VISTA
+    this.cd.detectChanges();
 
-}
+  }
 
 }
