@@ -1,10 +1,19 @@
 import { Routes } from '@angular/router';
+
 import { Login } from './pages/login/login';
+
 import { MainLayoutComponent } from './layouts/main-layout/main-layout';
+
 import { Dashboard } from './pages/dashboard/dashboard';
+
 import { RegistrarPropietarios } from './pages/registrar-propietarios/registrar-propietarios';
+
 import { ListarPropietarios } from './pages/listar-propietarios/listar-propietarios';
+
 import { EditarPropietarios } from './pages/editar-propietarios/editar-propietarios';
+
+// IMPORTAR GUARD
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
 
@@ -19,6 +28,9 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
 
+    // PROTEGER TODO EL LAYOUT
+    canActivate: [authGuard],
+
     children: [
 
       {
@@ -31,16 +43,15 @@ export const routes: Routes = [
         component: RegistrarPropietarios
       },
 
-    {
-      path: 'listar-propietarios',
-      component: ListarPropietarios,
-    },
+      {
+        path: 'listar-propietarios',
+        component: ListarPropietarios,
+      },
 
-    {
-      path: 'editar-propietario',
-      component: EditarPropietarios,
-  }
-
+      {
+        path: 'editar-propietario',
+        component: EditarPropietarios,
+      }
 
     ]
 
