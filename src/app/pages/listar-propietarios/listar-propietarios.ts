@@ -84,12 +84,6 @@ export class ListarPropietarios implements OnInit {
 
   async editar(moto: any) {
 
-    const confirmar = confirm(
-      '¿Desea editar este registro?'
-    );
-
-    if (!confirmar) return;
-
     this.router.navigate(
       ['editar-propietario'],
       {
