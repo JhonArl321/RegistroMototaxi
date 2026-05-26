@@ -15,7 +15,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './editar-propietarios.css',
 })
 
-export class EditarPropietarios implements OnInit{
+export class EditarPropietarios implements OnInit {
 
   nombres = '';
   apellidos = '';
@@ -33,59 +33,69 @@ export class EditarPropietarios implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef
-  ) {}
-
-  // async ngOnInit() {
-
-  //   this.id =
-  //     this.route.snapshot.queryParamMap.get('id')!;
-
-  //   const data =
-  //     await this.motoService.obtenerPorId(this.id);
-
-  //   this.nombres = data.nombres;
-  //   this.apellidos = data.apellidos;
-  //   this.dpi = data.dpi;
-  //   this.domicilio = data.domicilio;
-  //   this.modelo = data.modelo;
-  //   this.color = data.color;
-  //   this.seguroVida = data.seguroVida;
-  //   this.codigo = data.codigo;
-
-  // }
+  ) { }
 
 
 
-async ngOnInit() {
 
-  console.log('SI ENTRA');
+  async ngOnInit() {
 
-  this.id =
-    this.route.snapshot.queryParamMap.get('id')!;
+    console.log('SI ENTRA');
 
-  console.log(this.id);
+    this.id =
+      this.route.snapshot.queryParamMap.get('id')!;
 
-  const data =
-    await this.motoService.obtenerPorId(this.id);
+    console.log(this.id);
 
-  console.log(data);
+    const data =
+      await this.motoService.obtenerPorId(this.id);
 
-  this.nombres = data.nombres;
-  this.apellidos = data.apellidos;
-  this.dpi = data.dpi;
-  this.domicilio = data.domicilio;
-  this.modelo = data.modelo;
-  this.color = data.color;
-  this.seguroVida = data.seguroVida;
-  this.codigo = data.codigo;
+    console.log(data);
 
-  this.cdRef.detectChanges();
+    this.nombres = data.nombres;
+    this.apellidos = data.apellidos;
+    this.dpi = data.dpi;
+    this.domicilio = data.domicilio;
+    this.modelo = data.modelo;
+    this.color = data.color;
+    this.seguroVida = data.seguroVida;
+    this.codigo = data.codigo;
 
-}
+    this.cdRef.detectChanges();
+
+  }
+
+
+
+
+
 
   async actualizarMototaxi() {
 
-  console.log('Actualizando');
+    const confirmar = confirm(
+      '¿Desea actualizar este registro?'
+    );
 
-}
+    if (!confirmar) return;
+
+    await this.motoService.actualizarMototaxi(
+
+      this.id,
+
+      {
+        nombres: this.nombres,
+        apellidos: this.apellidos,
+        dpi: this.dpi,
+        domicilio: this.domicilio,
+        modelo: this.modelo,
+        color: this.color,
+        seguroVida: this.seguroVida,
+        codigo: this.codigo
+      }
+
+    );
+
+    alert('Registro actualizado');
+
+  }
 }
