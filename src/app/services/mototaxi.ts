@@ -43,14 +43,44 @@ export class MototaxiService {
 
   async obtenerMototaxis() {
 
+    // 1. Revisar cache
+    const cache =
+
+      typeof localStorage !== 'undefined'
+
+        ? localStorage.getItem('mototaxis')
+
+        : null;
+
+    // 2. Si existe cache devolverlo rápido
+    if (cache) {
+
+      console.log('DATOS DESDE CACHE');
+
+      // Actualizar Firebase en segundo plano
+      this.actualizarCache().catch(console.error);
+
+      return JSON.parse(cache);
+
+    }
+
+    // 3. Si no existe cache consultar Firebase
+    return await this.actualizarCache();
+  }
+
+
+  async actualizarCache() {
+
     const mototaxisRef = collection(
       this.firestore,
       'mototaxis'
     );
 
-    const snapshot = await getDocs(mototaxisRef);
+    const snapshot = await getDocs(
+      mototaxisRef
+    );
 
-    return snapshot.docs.map(doc => ({
+    const datos = snapshot.docs.map(doc => ({
 
       id: doc.id,
 
@@ -58,7 +88,28 @@ export class MototaxiService {
 
     }));
 
+    // Guardar cache
+    if (typeof localStorage !== 'undefined') {
+
+      localStorage.setItem(
+        'mototaxis',
+        JSON.stringify(datos)
+      );
+
+    }
+
+
+
+    console.log('CACHE ACTUALIZADO');
+
+    return datos;
+
   }
+
+
+
+
+
 
   // TOTAL MOTOTAXIS
   async totalMototaxis() {
