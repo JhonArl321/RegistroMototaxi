@@ -42,13 +42,23 @@ export class EditarPropietarios implements OnInit {
 
 
 
-
   async ngOnInit() {
 
     console.log('SI ENTRA');
 
-    this.id =
-      this.route.snapshot.queryParamMap.get('id')!;
+    const idParam =
+      this.route.snapshot.queryParamMap.get('id');
+
+    // VALIDAR
+    if (!idParam) {
+
+      console.log('ID NULL EN SSR');
+
+      return;
+
+    }
+
+    this.id = idParam;
 
     console.log(this.id);
 
@@ -69,7 +79,6 @@ export class EditarPropietarios implements OnInit {
     this.cdRef.detectChanges();
 
   }
-
 
   async actualizarMototaxi() {
 
