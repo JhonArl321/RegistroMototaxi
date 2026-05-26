@@ -3,12 +3,14 @@ import {
   OnInit,
   inject,
   ChangeDetectorRef
+  
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
 import { MototaxiService } from '../../services/mototaxi';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-propietarios',
@@ -64,23 +66,105 @@ export class ListarPropietarios implements OnInit {
 
   }
 
-  async eliminar(id: string) {
 
-    const confirmar = confirm(
-      '¿Desea eliminar este registro?'
-    );
 
-    if (!confirmar) return;
+
+
+
+
+
+
+
+
+
+ async eliminar(id: string) {
+
+  const confirmar = await Swal.fire({
+
+    icon: 'warning',
+    title: 'Eliminar registro',
+    text: '¿Desea eliminar este registro?',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#dc2626'
+
+  });
+
+  if (!confirmar.isConfirmed) return;
+
+  try {
 
     await this.motoService.eliminarMototaxi(id);
 
-    this.mototaxis =
-      await this.motoService.obtenerMototaxis();
+    // ELIMINAR VISUALMENTE
+    this.mototaxis = this.mototaxis.filter(
 
-    // ACTUALIZAR VISTA
+      moto => moto.id !== id
+
+    );
+
+    // ACTUALIZAR CACHE
+    await this.motoService.actualizarCache();
+
     this.cd.detectChanges();
 
+    // MENSAJE
+    Swal.fire({
+
+      icon: 'success',
+      title: 'Registro eliminado',
+      text: 'El propietario fue eliminado correctamente',
+      confirmButtonColor: '#4f46e5'
+
+    });
+
   }
+
+  catch(error) {
+
+    console.log(error);
+
+    Swal.fire({
+
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo eliminar el registro'
+
+    });
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   async editar(moto: any) {
 
