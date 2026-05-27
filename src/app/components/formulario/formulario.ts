@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
+
 
 // Service
 import { MototaxiService } from '../../services/mototaxi';
@@ -16,6 +19,8 @@ export class FormularioComponent {
 
   // Inyección del service
   motoService = inject(MototaxiService);
+  router = inject(Router)
+ 
 
   // Variables conectadas al formulario
   nombres = '';
@@ -103,6 +108,11 @@ export class FormularioComponent {
 
     }
 
+  }
+
+  cancelar(){
+    this.router.navigate(['/dashboard'])
+   
   }
 
 }
