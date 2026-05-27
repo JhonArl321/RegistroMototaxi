@@ -2,24 +2,19 @@ import { Injectable } from '@angular/core';
 
 import {
 
-  // Instancia de autenticación Firebase
   Auth,
-
-  // Login popup
   signInWithPopup,
 
-  // Providers
   GoogleAuthProvider,
   GithubAuthProvider,
 
-  // Logout
   signOut,
-
-  // Detectar cambios auth
   onAuthStateChanged,
+  User,
 
-  // Tipo usuario
-  User
+  // Mantener sesión aunque se refresque
+  browserLocalPersistence,
+  setPersistence
 
 } from '@angular/fire/auth';
 
@@ -32,20 +27,20 @@ export class AuthService {
   // Usuario Firebase
   googleUsername: User | null = null;
 
-  // Username GitHub
+  // Datos usuario
   githubUsername = '';
-
-  // Foto usuario
   userPhoto = '';
-
-  // Correo usuario
   userEmail = '';
 
   constructor(private auth: Auth) {
 
-    // ================================
-    // CARGAR CACHE
-    // ================================
+    // Mantener sesión activa
+    setPersistence(
+      this.auth,
+      browserLocalPersistence
+    );
+
+    // Cargar cache
     if (typeof localStorage !== 'undefined') {
 
       const usuarioGuardado =
@@ -69,32 +64,25 @@ export class AuthService {
 
     }
 
-    // ================================
-    // FIREBASE AUTH
-    // ================================
+    // Detectar sesión Firebase
     onAuthStateChanged(this.auth, (usuario) => {
 
+      // Si existe usuario
       if (usuario) {
 
-        // Guardar usuario Firebase
         this.googleUsername = usuario;
 
-        // Username GitHub
         this.githubUsername =
           (usuario as any)
           .reloadUserInfo?.screenName || '';
 
-        // Foto
         this.userPhoto =
           usuario.photoURL || '';
 
-        // Correo
         this.userEmail =
           usuario.email || '';
 
-        // ================================
-        // GUARDAR CACHE
-        // ================================
+        // Guardar cache
         if (typeof localStorage !== 'undefined') {
 
           localStorage.setItem(
@@ -120,13 +108,27 @@ export class AuthService {
 
       }
 
+      // Si no existe usuario
+      else {
+
+        this.googleUsername = null;
+        this.githubUsername = '';
+        this.userPhoto = '';
+        this.userEmail = '';
+
+        if (typeof localStorage !== 'undefined') {
+
+          localStorage.removeItem('usuario');
+
+        }
+
+      }
+
     });
 
   }
 
-  // ================================
-  // LOGIN GOOGLE
-  // ================================
+  // Login Google
   loginGoogle() {
 
     return signInWithPopup(
@@ -136,9 +138,7 @@ export class AuthService {
 
   }
 
-  // ================================
-  // LOGIN GITHUB
-  // ================================
+  // Login GitHub
   loginGithub() {
 
     return signInWithPopup(
@@ -148,12 +148,9 @@ export class AuthService {
 
   }
 
-  // ================================
-  // LOGOUT
-  // ================================
+  // Logout
   logout() {
 
-    // Limpiar cache
     if (typeof localStorage !== 'undefined') {
 
       localStorage.removeItem('usuario');
