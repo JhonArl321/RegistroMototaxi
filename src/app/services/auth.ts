@@ -14,7 +14,10 @@ import {
 
   // Mantener sesión aunque se refresque
   browserLocalPersistence,
-  setPersistence
+  setPersistence,
+
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 
 } from '@angular/fire/auth';
 
@@ -74,7 +77,7 @@ export class AuthService {
 
         this.githubUsername =
           (usuario as any)
-          .reloadUserInfo?.screenName || '';
+            .reloadUserInfo?.screenName || '';
 
         this.userPhoto =
           usuario.photoURL || '';
@@ -147,6 +150,35 @@ export class AuthService {
     );
 
   }
+
+
+  // REGISTRAR USUARIO
+registrarUsuario(
+  email: string,
+  password: string
+) {
+
+  return createUserWithEmailAndPassword(
+    this.auth,
+    email,
+    password
+  );
+
+}
+
+// LOGIN USUARIO
+loginUsuario(
+  email: string,
+  password: string
+) {
+
+  return signInWithEmailAndPassword(
+    this.auth,
+    email,
+    password
+  );
+
+}
 
   // Logout
   logout() {

@@ -11,6 +11,7 @@ import { RegistrarPropietarios } from './pages/registrar-propietarios/registrar-
 import { ListarPropietarios } from './pages/listar-propietarios/listar-propietarios';
 
 import { EditarPropietarios } from './pages/editar-propietarios/editar-propietarios';
+import { RegisterFormComponent } from './components/register-form/register-form';
 
 // IMPORTAR GUARD
 import { authGuard } from './guards/auth-guard';
@@ -23,6 +24,12 @@ export const routes: Routes = [
     component: Login
   },
 
+  { 
+    path: 'register',
+    component: RegisterFormComponent
+
+  },
+
   // Sistema con sidebar fijo
   {
     path: '',
@@ -30,6 +37,7 @@ export const routes: Routes = [
 
     // PROTEGER TODO EL LAYOUT
     canActivate: [authGuard],
+    
 
     children: [
 

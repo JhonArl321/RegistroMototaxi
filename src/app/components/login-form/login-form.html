@@ -2,10 +2,13 @@
   class="flex h-screen flex-col justify-center bg-linear-to-br from-gray-950 via-gray-900 to-indigo-950 px-6 py-4 lg:px-8">
 
   <!-- Header -->
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm text-center">
+  <div class="text-center sm:mx-auto sm:w-full sm:max-w-sm">
 
     <!-- Logo -->
-    <img src="mototaxi.webp" alt="Your Company" class="mx-auto h-14 w-14 rounded-full object-cover drop-shadow-lg" />
+    <img
+      src="mototaxi.webp"
+      alt="Logo"
+      class="mx-auto h-14 w-14 rounded-full object-cover drop-shadow-lg" />
 
     <!-- Subtitle -->
     <p class="mt-3 text-sm text-gray-400">
@@ -17,76 +20,12 @@
   <!-- Login Container -->
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 
-    <!-- Login Card -->
-    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur-lg">
+    <!-- Card -->
+    <div
+      class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur-lg">
 
-      <!-- Form -->
-      <form action="#" method="POST" class="space-y-5">
-
-        <!-- Email -->
-        <div>
-
-          <label for="email" class="block text-sm font-medium text-gray-200">
-
-            Correo electrónico
-
-          </label>
-
-          <div class="mt-2">
-
-            <input id="email" type="email" name="email" required autocomplete="email" placeholder="Ingresa tu correo"
-              class="block w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-
-          </div>
-
-        </div>
-
-        <!-- Password -->
-        <div>
-
-          <div class="flex items-center justify-between">
-
-            <label for="password" class="block text-sm font-medium text-gray-200">
-
-              Contraseña
-
-            </label>
-
-            <div class="text-sm">
-
-              <a href="#" class="font-semibold text-indigo-400 transition hover:text-indigo-300">
-
-                ¿Olvidaste tu contraseña?
-
-              </a>
-
-            </div>
-
-          </div>
-
-          <div class="mt-2">
-
-            <input id="password" type="password" name="password" required autocomplete="current-password"
-              placeholder="Ingresa tu contraseña"
-              class="block w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-
-          </div>
-
-        </div>
-
-        <!-- Submit -->
-        <div>
-
-          <button type="submit"
-            class="flex w-full justify-center rounded-xl bg-indigo-600 px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02] hover:bg-indigo-500">
-
-            Iniciar Sesión
-
-          </button>
-
-        </div>
-
-      </form>
+      <!-- LOGIN EMAIL -->
+      <app-auth-email></app-auth-email>
 
       <!-- Divider -->
       <div class="mt-6 flex items-center">
@@ -109,19 +48,6 @@
         <app-auth-github></app-auth-github>
 
       </div>
-
-      <!-- Register -->
-      <p class="mt-7 text-center text-sm text-gray-400">
-
-        ¿No tienes cuenta?
-
-        <a href="#" class="font-semibold text-indigo-400 hover:text-indigo-300">
-
-          Regístrate
-
-        </a>
-
-      </p>
 
     </div>
 

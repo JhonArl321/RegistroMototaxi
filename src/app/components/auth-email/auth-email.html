@@ -1,0 +1,80 @@
+<!-- Formulario -->
+<form class="space-y-5">
+
+    <!-- Email -->
+    <div>
+
+        <label for="email" class="block text-sm font-medium text-gray-200">
+
+            Correo electrónico
+
+        </label>
+
+        <div class="mt-2">
+
+            <input [(ngModel)]="email" id="email" type="email" name="email" placeholder="Ingresa tu correo"
+                class="block w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+
+        </div>
+
+    </div>
+
+    <!-- Password -->
+    <div>
+
+        <div class="flex items-center justify-between">
+
+            <label for="password" class="block text-sm font-medium text-gray-200">
+
+                Contraseña
+
+            </label>
+
+            <div class="text-sm">
+
+                <a href="#" class="font-semibold text-indigo-400 transition hover:text-indigo-300">
+
+                    ¿Olvidaste tu contraseña?
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="mt-2">
+
+            <input [(ngModel)]="password" id="password" type="password" name="password"
+                placeholder="Ingresa tu contraseña"
+                class="block w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+
+        </div>
+
+    </div>
+
+    <!-- Botón Login -->
+    <div>
+
+        <button type="button" (click)="login()"
+            class="flex w-full justify-center rounded-xl bg-indigo-600 px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02] hover:bg-indigo-500">
+
+            Iniciar Sesión
+
+        </button>
+
+    </div>
+
+    <!-- Registro -->
+    <p class="text-center text-sm text-gray-400">
+
+        ¿No tienes cuenta?
+
+        <a routerLink="/register" class="font-semibold text-indigo-400 hover:text-indigo-300">
+
+            Regístrate
+
+        </a>
+
+    </p>
+
+</form>
