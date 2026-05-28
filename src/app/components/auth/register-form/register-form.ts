@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject,  AfterViewInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -13,7 +13,7 @@ import { AuthService } from '../../../services/auth';
   styleUrl: './register-form.css',
 })
 
-export class RegisterFormComponent {
+export class RegisterFormComponent implements AfterViewInit {
 
   // Services
   authService = inject(AuthService);
@@ -24,6 +24,28 @@ export class RegisterFormComponent {
   email = '';
   password = '';
   confirmPassword = '';
+  widgetId: any;
+
+
+
+
+
+  ngAfterViewInit(): void {
+
+  setTimeout(() => {
+
+    this.widgetId =
+      (window as any).grecaptcha.render(
+        'recaptcha-container',
+        {
+          sitekey:
+            '6LfulQEtAAAAACYtu-kjfAQH_UR8caQgmA1PUJzy'
+        }
+      );
+
+  }, 500);
+
+}
 
   // REGISTRAR USUARIO
   async registrar() {
@@ -92,6 +114,33 @@ export class RegisterFormComponent {
 
     }
 
+
+
+
+
+
+    // CAPTCHA
+    const captcha =
+      (window as any).grecaptcha.getResponse();
+
+    if (!captcha) {
+
+      Swal.fire({
+
+        icon: 'warning',
+        title: 'Completa el captcha',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
+
+      });
+
+      return;
+
+    }
+
     try {
 
       await this.authService.registrarUsuario(
@@ -111,6 +160,8 @@ export class RegisterFormComponent {
         confirmButtonColor: '#4f46e5'
 
       });
+
+      (window as any).grecaptcha.reset();
 
       this.router.navigate(['/']);
 
