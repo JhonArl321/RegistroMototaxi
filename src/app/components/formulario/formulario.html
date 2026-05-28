@@ -49,9 +49,7 @@
                 <!-- Campo nombres -->
                 <div class="sm:col-span-3">
 
-                    <label
-                        for="first-name"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="first-name" class="block text-sm font-medium text-gray-900">
 
                         Nombres
 
@@ -59,11 +57,7 @@
 
                     <div class="mt-2">
 
-                        <input
-                            id="first-name"
-                            type="text"
-                            name="nombres"
-                            [(ngModel)]="nombres"
+                        <input id="first-name" type="text" name="nombres" [(ngModel)]="nombres"
                             autocomplete="given-name"
                             class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
@@ -74,9 +68,7 @@
                 <!-- Campo apellidos -->
                 <div class="sm:col-span-3">
 
-                    <label
-                        for="last-name"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="last-name" class="block text-sm font-medium text-gray-900">
 
                         Apellidos
 
@@ -84,11 +76,7 @@
 
                     <div class="mt-2">
 
-                        <input
-                            id="last-name"
-                            type="text"
-                            name="apellidos"
-                            [(ngModel)]="apellidos"
+                        <input id="last-name" type="text" name="apellidos" [(ngModel)]="apellidos"
                             autocomplete="family-name"
                             class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
@@ -99,9 +87,7 @@
                 <!-- Campo DPI -->
                 <div class="sm:col-span-3">
 
-                    <label
-                        for="dpi"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="dpi" class="block text-sm font-medium text-gray-900">
 
                         DPI
 
@@ -109,11 +95,7 @@
 
                     <div class="mt-2">
 
-                        <input
-                            id="dpi"
-                            type="text"
-                            name="dpi"
-                            [(ngModel)]="dpi"
+                        <input id="dpi" type="text" name="dpi" [(ngModel)]="dpi"
                             class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
@@ -123,9 +105,7 @@
                 <!-- Campo domicilio -->
                 <div class="sm:col-span-3">
 
-                    <label
-                        for="domicilio"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="domicilio" class="block text-sm font-medium text-gray-900">
 
                         Domicilio
 
@@ -133,11 +113,7 @@
 
                     <div class="mt-2">
 
-                        <input
-                            id="domicilio"
-                            type="text"
-                            name="domicilio"
-                            [(ngModel)]="domicilio"
+                        <input id="domicilio" type="text" name="domicilio" [(ngModel)]="domicilio"
                             class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
@@ -173,9 +149,7 @@
                 <!-- Selector del modelo -->
                 <div class="sm:col-span-3">
 
-                    <label
-                        for="modelo"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="modelo" class="block text-sm font-medium text-gray-900">
 
                         Modelo
 
@@ -183,16 +157,32 @@
 
                     <div class="mt-2">
 
-                        <select
-                            id="modelo"
-                            name="modelo"
-                            [(ngModel)]="modelo"
+                        <select id="modelo" name="modelo" [(ngModel)]="modelo"
                             class="w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600">
 
+                            <option value="">Seleccione un modelo</option>
+
+                            <!-- Bajaj -->
+                            <option>Bajaj RE</option>
+                            <option>Bajaj RE4S 200</option>
+
+                            <!-- TVS -->
                             <option>TVS King</option>
-                            <option>Bajaj</option>
-                            <option>Yamaha</option>
-                            <option>Suzuki</option>
+                            <option>TVS King Deluxe</option>
+
+                            <!-- Italika -->
+                            <option>Italika Titan 250</option>
+
+                            <!-- Suzuki -->
+                            <option>Suzuki AX100 Adaptado</option>
+
+                            <!-- Yamaha -->
+                            <option>Yamaha Crux Adaptado</option>
+
+                            <!-- Otros -->
+                            <option>Torito 200cc</option>
+                            <option>Trimoto de carga</option>
+                            <option>Tuk Tuk Eléctrico</option>
 
                         </select>
 
@@ -203,9 +193,7 @@
                 <!-- Color -->
                 <div class="sm:col-span-2 sm:col-start-1">
 
-                    <label
-                        for="color"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="color" class="block text-sm font-medium text-gray-900">
 
                         Color
 
@@ -213,11 +201,7 @@
 
                     <div class="mt-2">
 
-                        <input
-                            id="color"
-                            type="text"
-                            name="color"
-                            [(ngModel)]="color"
+                        <input id="color" type="text" name="color" [(ngModel)]="color"
                             class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
@@ -227,9 +211,7 @@
                 <!-- Seguro de vida -->
                 <div class="sm:col-span-2">
 
-                    <label
-                        for="seguroVida"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="seguroVida" class="block text-sm font-medium text-gray-900">
 
                         Seguro de vida
 
@@ -237,10 +219,7 @@
 
                     <div class="mt-2">
 
-                        <select
-                            id="seguroVida"
-                            name="seguroVida"
-                            [(ngModel)]="seguroVida"
+                        <select id="seguroVida" name="seguroVida" [(ngModel)]="seguroVida"
                             class="w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600">
 
                             <option>Si</option>
@@ -255,9 +234,7 @@
                 <!-- Código -->
                 <div class="sm:col-span-2">
 
-                    <label
-                        for="codigo"
-                        class="block text-sm font-medium text-gray-900">
+                    <label for="codigo" class="block text-sm font-medium text-gray-900">
 
                         Código único de identificación de mototaxi
 
@@ -265,12 +242,7 @@
 
                     <div class="mt-2">
 
-                        <input
-                            id="codigo"
-                            type="text"
-                            name="codigo"
-                            [(ngModel)]="codigo"
-                            readonly
+                        <input id="codigo" type="text" name="codigo" [(ngModel)]="codigo" readonly
                             class="block w-full cursor-not-allowed rounded-xl bg-gray-200 px-3 py-2 text-sm text-gray-500 outline outline-1 outline-gray-300" />
 
                     </div>
@@ -287,9 +259,7 @@
     <div class="mt-6 flex items-center justify-end gap-x-4">
 
         <!-- Cancelar -->
-        <button
-            type="button"
-            (click)="cancelar()"
+        <button type="button" (click)="cancelar()"
             class="rounded-xl bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-green-500">
 
             Cancelar
@@ -297,8 +267,7 @@
         </button>
 
         <!-- Registrar -->
-        <button
-            type="submit"
+        <button type="submit"
             class="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500">
 
             Registrar
