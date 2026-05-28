@@ -17,7 +17,8 @@ import {
   setPersistence,
 
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  updateProfile
 
 } from '@angular/fire/auth';
 
@@ -152,18 +153,30 @@ export class AuthService {
   }
 
   // Registrar usuario
-  registrarUsuario(
-    email: string,
-    password: string
-  ) {
+// Registrar usuario
+async registrarUsuario(
+  nombre: string,
+  email: string,
+  password: string
+) {
 
-    return createUserWithEmailAndPassword(
+  const respuesta =
+    await createUserWithEmailAndPassword(
       this.auth,
       email,
       password
     );
 
-  }
+  // Guardar nombre
+  await updateProfile(
+    respuesta.user,
+    {
+      displayName: nombre
+    }
+  );
+
+}
+
 
   // Login usuario
   loginUsuario(

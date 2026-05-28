@@ -69,8 +69,10 @@ export class RegisterFormComponent {
 
       // Registrar usuario Firebase
       await this.authService.registrarUsuario(
+        this.nombre,
         this.email,
         this.password
+        
       );
 
       // Mensaje éxito
