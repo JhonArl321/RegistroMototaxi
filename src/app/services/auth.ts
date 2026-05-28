@@ -12,7 +12,7 @@ import {
   onAuthStateChanged,
   User,
 
-  // Mantener sesión aunque se refresque
+  // Persistencia sesión
   browserLocalPersistence,
   setPersistence,
 
@@ -27,7 +27,7 @@ import {
 
 export class AuthService {
 
-  // Usuario Firebase
+  // Usuario autenticado
   googleUsername: User | null = null;
 
   // Datos usuario
@@ -43,7 +43,7 @@ export class AuthService {
       browserLocalPersistence
     );
 
-    // Cargar cache
+    // Cargar usuario guardado
     if (typeof localStorage !== 'undefined') {
 
       const usuarioGuardado =
@@ -67,10 +67,10 @@ export class AuthService {
 
     }
 
-    // Detectar sesión Firebase
+    // Detectar cambios sesión
     onAuthStateChanged(this.auth, (usuario) => {
 
-      // Si existe usuario
+      // Usuario autenticado
       if (usuario) {
 
         this.googleUsername = usuario;
@@ -111,7 +111,7 @@ export class AuthService {
 
       }
 
-      // Si no existe usuario
+      // Cerrar sesión
       else {
 
         this.googleUsername = null;
@@ -151,36 +151,35 @@ export class AuthService {
 
   }
 
+  // Registrar usuario
+  registrarUsuario(
+    email: string,
+    password: string
+  ) {
 
-  // REGISTRAR USUARIO
-registrarUsuario(
-  email: string,
-  password: string
-) {
+    return createUserWithEmailAndPassword(
+      this.auth,
+      email,
+      password
+    );
 
-  return createUserWithEmailAndPassword(
-    this.auth,
-    email,
-    password
-  );
+  }
 
-}
+  // Login usuario
+  loginUsuario(
+    email: string,
+    password: string
+  ) {
 
-// LOGIN USUARIO
-loginUsuario(
-  email: string,
-  password: string
-) {
+    return signInWithEmailAndPassword(
+      this.auth,
+      email,
+      password
+    );
 
-  return signInWithEmailAndPassword(
-    this.auth,
-    email,
-    password
-  );
+  }
 
-}
-
-  // Logout
+  // Cerrar sesión
   logout() {
 
     if (typeof localStorage !== 'undefined') {
