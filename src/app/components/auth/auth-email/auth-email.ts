@@ -18,32 +18,102 @@ export class AuthEmailComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  // Campos del formulario
+  // Campos formulario
   email = '';
   password = '';
 
-  // Iniciar sesión
+  // LOGIN
   async login() {
+
+    // Regex email
+    const emailValido =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Campos vacíos
+    if (
+      !this.email ||
+      !this.password
+    ) {
+
+      Swal.fire({
+
+        icon: 'warning',
+        title: 'Campos vacíos',
+        text: 'Completa todos los campos'
+
+      });
+
+      return;
+
+    }
+
+    // Validar email
+    if (!emailValido.test(this.email)) {
+
+      Swal.fire({
+
+        icon: 'warning',
+        title: 'Correo inválido'
+
+      });
+
+      return;
+
+    }
+
+    // SOLO GMAIL
+    if (
+      !this.email
+        .toLowerCase()
+        .endsWith('@gmail.com')
+    ) {
+
+      Swal.fire({
+
+        icon: 'warning',
+        title: 'Solo se permiten correos Gmail'
+
+      });
+
+      return;
+
+    }
+
+    // Validar contraseña
+    if (this.password.length < 6) {
+
+      Swal.fire({
+
+        icon: 'warning',
+        title: 'Contraseña inválida',
+        text: 'Mínimo 6 caracteres'
+
+      });
+
+      return;
+
+    }
 
     try {
 
+      // Login Firebase
       await this.authService.loginUsuario(
         this.email,
         this.password
       );
 
-      // Redirigir al dashboard
+      // Redireccionar
       this.router.navigate(['/dashboard']);
 
     }
 
     catch {
 
-      // Mostrar error
       Swal.fire({
 
         icon: 'error',
-        title: 'Error al iniciar sesión'
+        title: 'Error al iniciar sesión',
+        text: 'Credenciales incorrectas'
 
       });
 

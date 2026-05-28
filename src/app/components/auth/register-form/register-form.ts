@@ -28,80 +28,77 @@ export class RegisterFormComponent {
   
   // REGISTRAR USUARIO
  
-  async registrar() {
+async registrar() {
 
-    // Validar campos vacíos
-    if (
-      !this.nombre ||
-      !this.email ||
-      !this.password ||
-      !this.confirmPassword
-    ) {
+  // Campos vacíos
+  if (
+    !this.nombre ||
+    !this.email ||
+    !this.password ||
+    !this.confirmPassword
+  ) {
 
-      Swal.fire({
+    Swal.fire({
+      icon: 'warning',
+      title: 'Campos vacíos',
+      text: 'Debes completar todos los campos'
+    });
 
-        icon: 'warning',
-        title: 'Campos vacíos',
-        text: 'Debes completar todos los campos'
-
-      });
-
-      return;
-
-    }
-
-    // Validar contraseñas
-    if (this.password !== this.confirmPassword) {
-
-      Swal.fire({
-
-        icon: 'error',
-        title: 'Contraseñas diferentes',
-        text: 'Las contraseñas no coinciden'
-
-      });
-
-      return;
-
-    }
-
-    try {
-
-      // Registrar usuario Firebase
-      await this.authService.registrarUsuario(
-        this.nombre,
-        this.email,
-        this.password
-        
-      );
-
-      // Mensaje éxito
-      Swal.fire({
-
-        icon: 'success',
-        title: 'Cuenta creada',
-        text: 'Ahora puedes iniciar sesión',
-        confirmButtonColor: '#4f46e5'
-
-      });
-
-      // Redirigir login
-      this.router.navigate(['/']);
-
-    }
-
-    catch (error) {
-
-      Swal.fire({
-
-        icon: 'error',
-        title: 'Error',
-        text: 'No se pudo crear la cuenta'
-
-      });
-
-    }
+    return;
 
   }
+
+  // SOLO GMAIL
+  if (!this.email.endsWith('@gmail.com')) {
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'Solo se permiten correos Gmail'
+    });
+
+    return;
+
+  }
+
+  // Contraseñas iguales
+  if (this.password !== this.confirmPassword) {
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Contraseñas diferentes',
+      text: 'Las contraseñas no coinciden'
+    });
+
+    return;
+
+  }
+
+  try {
+
+    await this.authService.registrarUsuario(
+      this.nombre,
+      this.email,
+      this.password
+    );
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Cuenta creada'
+    });
+
+    this.router.navigate(['/']);
+
+  }
+
+  catch {
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Error'
+    });
+
+  }
+
+}
 
 }
