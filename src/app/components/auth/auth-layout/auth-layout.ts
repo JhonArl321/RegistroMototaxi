@@ -9,6 +9,7 @@ import { Component, input } from '@angular/core';
 })
 export class AuthLayoutComponent {
 
+    // Texto dinámico del subtítulo
   subtitle = input('');
 
 }

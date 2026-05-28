@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { inject } from '@angular/core';
+import Swal from 'sweetalert2';
 
 import { AuthService } from '../../../services/auth';
 
@@ -14,29 +14,33 @@ import { AuthService } from '../../../services/auth';
 
 export class AuthGithubComponent {
 
-  // Inyección de servicios necesarios
+  // Servicios
   router = inject(Router);
   authService = inject(AuthService);
 
-  // Método para iniciar sesión con GitHub
-  login() {
+  // Login con GitHub
+  async login() {
 
-    this.authService.loginGithub()
-      .then((response) => {
+    try {
 
-        console.log("Login GitHub correcto");
-        console.log(response.user);
+      await this.authService.loginGithub();
 
-        // Redirige al dashboard después del login
-        this.router.navigate(['/dashboard']);
+      // Redirigir al dashboard
+      this.router.navigate(['/dashboard']);
 
-      })
-      .catch((error) => {
+    }
 
-        // Muestra errores en consola
-        console.log(error);
+    catch {
+
+      // Mostrar error
+      Swal.fire({
+
+        icon: 'error',
+        title: 'Error al iniciar sesión con GitHub'
 
       });
+
+    }
 
   }
 

@@ -25,9 +25,9 @@ export class RegisterFormComponent {
   password = '';
   confirmPassword = '';
 
-  // =========================================
+  
   // REGISTRAR USUARIO
-  // =========================================
+ 
   async registrar() {
 
     // Validar campos vacíos

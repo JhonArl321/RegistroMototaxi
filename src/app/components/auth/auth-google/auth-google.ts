@@ -1,41 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 import { AuthService } from '../../../services/auth';
-import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-auth-google',
   standalone: true,
   imports: [],
   templateUrl: './auth-google.html',
-  styleUrls: ['./auth-google.css'],
+  styleUrl: './auth-google.css',
 })
 
 export class AuthGoogleComponent {
 
-  // Inyección de servicios necesarios
+  // Servicios
   router = inject(Router);
   authService = inject(AuthService);
 
-  // Método para iniciar sesión con Google
-  login() {
+  // Login con Google
+  async login() {
 
-    this.authService.loginGoogle()
-      .then((response) => {
+    try {
 
-        console.log("Login correcto");
-        console.log(response.user);
+      await this.authService.loginGoogle();
 
-        // Redirige al dashboard después del login
-        this.router.navigate(['/dashboard']);
+      // Redirigir al dashboard
+      this.router.navigate(['/dashboard']);
 
-      })
-      .catch((error) => {
+    }
 
-        // Muestra errores en consola
-        console.log(error);
+    catch {
+
+      // Mostrar error
+      Swal.fire({
+
+        icon: 'error',
+        title: 'Error al iniciar sesión con Google'
 
       });
+
+    }
 
   }
 

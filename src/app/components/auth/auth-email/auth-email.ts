@@ -1,10 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { RouterLink } from '@angular/router';
-
+import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-email',
@@ -16,13 +14,15 @@ import { Router } from '@angular/router';
 
 export class AuthEmailComponent {
 
+  // Servicios
   authService = inject(AuthService);
   router = inject(Router);
 
+  // Campos del formulario
   email = '';
   password = '';
 
-  // LOGIN
+  // Iniciar sesión
   async login() {
 
     try {
@@ -31,48 +31,19 @@ export class AuthEmailComponent {
         this.email,
         this.password
       );
+
+      // Redirigir al dashboard
       this.router.navigate(['/dashboard']);
 
     }
 
     catch {
 
+      // Mostrar error
       Swal.fire({
 
         icon: 'error',
         title: 'Error al iniciar sesión'
-
-      });
-
-    }
-
-  }
-
-  // REGISTRO
-  async registrar() {
-
-    try {
-
-      await this.authService.registrarUsuario(
-        this.email,
-        this.password
-      );
-
-      Swal.fire({
-
-        icon: 'success',
-        title: 'Cuenta creada'
-
-      });
-
-    }
-
-    catch {
-
-      Swal.fire({
-
-        icon: 'error',
-        title: 'Error al registrar usuario'
 
       });
 
