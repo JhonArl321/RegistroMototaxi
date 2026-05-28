@@ -25,80 +25,113 @@ export class RegisterFormComponent {
   password = '';
   confirmPassword = '';
 
-  
   // REGISTRAR USUARIO
- 
-async registrar() {
+  async registrar() {
 
-  // Campos vacíos
-  if (
-    !this.nombre ||
-    !this.email ||
-    !this.password ||
-    !this.confirmPassword
-  ) {
+    // Campos vacíos
+    if (
+      !this.nombre ||
+      !this.email ||
+      !this.password ||
+      !this.confirmPassword
+    ) {
 
-    Swal.fire({
-      icon: 'warning',
-      title: 'Campos vacíos',
-      text: 'Debes completar todos los campos'
-    });
+      Swal.fire({
 
-    return;
+        icon: 'warning',
+        title: 'Campos vacíos',
+        text: 'Debes completar todos los campos',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
+
+      });
+
+      return;
+
+    }
+
+    // SOLO GMAIL
+    if (!this.email.endsWith('@gmail.com')) {
+
+      Swal.fire({
+
+        icon: 'warning',
+        title: 'Solo se permiten correos Gmail',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
+
+      });
+
+      return;
+
+    }
+
+    // Contraseñas iguales
+    if (this.password !== this.confirmPassword) {
+
+      Swal.fire({
+
+        icon: 'error',
+        title: 'Contraseñas diferentes',
+        text: 'Las contraseñas no coinciden',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
+
+      });
+
+      return;
+
+    }
+
+    try {
+
+      await this.authService.registrarUsuario(
+        this.nombre,
+        this.email,
+        this.password
+      );
+
+      Swal.fire({
+
+        icon: 'success',
+        title: 'Cuenta creada',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
+
+      });
+
+      this.router.navigate(['/']);
+
+    }
+
+    catch {
+
+      Swal.fire({
+
+        icon: 'error',
+        title: 'Error',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
+
+      });
+
+    }
 
   }
-
-  // SOLO GMAIL
-  if (!this.email.endsWith('@gmail.com')) {
-
-    Swal.fire({
-      icon: 'warning',
-      title: 'Solo se permiten correos Gmail'
-    });
-
-    return;
-
-  }
-
-  // Contraseñas iguales
-  if (this.password !== this.confirmPassword) {
-
-    Swal.fire({
-      icon: 'error',
-      title: 'Contraseñas diferentes',
-      text: 'Las contraseñas no coinciden'
-    });
-
-    return;
-
-  }
-
-  try {
-
-    await this.authService.registrarUsuario(
-      this.nombre,
-      this.email,
-      this.password
-    );
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Cuenta creada'
-    });
-
-    this.router.navigate(['/']);
-
-  }
-
-  catch {
-
-    Swal.fire({
-      icon: 'error',
-      title: 'Error'
-    });
-
-  }
-
-}
 
 }

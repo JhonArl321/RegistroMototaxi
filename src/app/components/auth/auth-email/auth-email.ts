@@ -39,7 +39,12 @@ export class AuthEmailComponent {
 
         icon: 'warning',
         title: 'Campos vacíos',
-        text: 'Completa todos los campos'
+        text: 'Completa todos los campos',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
 
       });
 
@@ -53,7 +58,12 @@ export class AuthEmailComponent {
       Swal.fire({
 
         icon: 'warning',
-        title: 'Correo inválido'
+        title: 'Correo inválido',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
 
       });
 
@@ -71,7 +81,12 @@ export class AuthEmailComponent {
       Swal.fire({
 
         icon: 'warning',
-        title: 'Solo se permiten correos Gmail'
+        title: 'Solo se permiten correos Gmail',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
 
       });
 
@@ -86,7 +101,12 @@ export class AuthEmailComponent {
 
         icon: 'warning',
         title: 'Contraseña inválida',
-        text: 'Mínimo 6 caracteres'
+        text: 'Mínimo 6 caracteres',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
 
       });
 
@@ -113,7 +133,12 @@ export class AuthEmailComponent {
 
         icon: 'error',
         title: 'Error al iniciar sesión',
-        text: 'Credenciales incorrectas'
+        text: 'Credenciales incorrectas',
+
+        width: '320px',
+        background: '#1f2937',
+        color: '#fff',
+        confirmButtonColor: '#4f46e5'
 
       });
 
