@@ -1,57 +1,85 @@
-
 <!-- 
-  Formulario principal del registro de mototaxis.
+  Formulario principal para editar mototaxis.
   Se utiliza ngForm para manejar el formulario desde Angular
-  y ejecutar el método guardarMototaxi() al enviar.
+  y ejecutar el método actualizarMototaxi() al enviar.
 -->
+
 <form #formulario="ngForm" (ngSubmit)="actualizarMototaxi()">
 
-   <div class="rounded-3xl bg-gray-100 p-8 shadow-sm">
+    <div class="rounded-3xl bg-gray-100 p-8 shadow-sm">
 
         <!-- Contenedor principal -->
         <div class="border-b border-gray-900/10 pb-12">
 
             <!-- Título -->
-            <h2 class="text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
-                Editar datos del propietario y del vehiculo
+            <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+                Editar mototaxi
             </h2>
 
             <!-- Descripción -->
-            <p class="mt-1 text-sm/6 text-gray-600">
-                Ingresa la información del propietario y vehículo.
+            <p class="mt-1 text-sm text-gray-600">
+                Actualiza la información del propietario y vehículo.
             </p>
 
-            <!-- Grid del formulario -->
-            <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
-                <!-- Campo nombres -->
+            <!-- ========================= -->
+            <!-- DATOS DEL PROPIETARIO -->
+            <!-- ========================= -->
+
+            <div class="mt-8 mb-6 flex items-center gap-3">
+
+                <div class="h-10 w-1 rounded-full bg-indigo-600"></div>
+
+                <div>
+
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        Datos del propietario
+                    </h3>
+
+                    <p class="text-sm text-gray-500">
+                        Información personal del propietario
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+
+                <!-- Nombres -->
                 <div class="sm:col-span-3">
 
-                    <label for="first-name" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="first-name"
+                        class="block text-sm font-medium text-gray-900">
+
                         Nombres
+
                     </label>
 
                     <div class="mt-2">
 
-                        <!-- 
-                          ngModel conecta el input con la variable nombres del TS.
-                        -->
                         <input
                             id="first-name"
                             type="text"
                             name="nombres"
                             [(ngModel)]="nombres"
                             autocomplete="given-name"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                            class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
 
                 </div>
 
-                <!-- Campo apellidos -->
+                <!-- Apellidos -->
                 <div class="sm:col-span-3">
 
-                    <label for="last-name" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="last-name"
+                        class="block text-sm font-medium text-gray-900">
+
                         Apellidos
+
                     </label>
 
                     <div class="mt-2">
@@ -62,17 +90,21 @@
                             name="apellidos"
                             [(ngModel)]="apellidos"
                             autocomplete="family-name"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                            class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
 
                 </div>
 
-                <!-- Campo DPI -->
+                <!-- DPI -->
                 <div class="sm:col-span-3">
 
-                    <label for="dpi" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="dpi"
+                        class="block text-sm font-medium text-gray-900">
+
                         DPI
+
                     </label>
 
                     <div class="mt-2">
@@ -82,18 +114,21 @@
                             type="text"
                             name="dpi"
                             [(ngModel)]="dpi"
-                            autocomplete="family-name"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                            class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
 
                 </div>
 
-                <!-- Campo domicilio -->
+                <!-- Domicilio -->
                 <div class="sm:col-span-3">
 
-                    <label for="domicilio" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="domicilio"
+                        class="block text-sm font-medium text-gray-900">
+
                         Domicilio
+
                     </label>
 
                     <div class="mt-2">
@@ -103,31 +138,56 @@
                             type="text"
                             name="domicilio"
                             [(ngModel)]="domicilio"
-                            autocomplete="family-name"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                            class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
 
                 </div>
 
-                <!-- Selector del modelo -->
+                <!-- ========================= -->
+                <!-- DATOS DEL MOTOTAXI -->
+                <!-- ========================= -->
+
+                <div class="sm:col-span-6 mt-4">
+
+                    <div class="mb-2 flex items-center gap-3">
+
+                        <div class="h-10 w-1 rounded-full bg-indigo-600"></div>
+
+                        <div>
+
+                            <h3 class="text-lg font-semibold text-gray-900">
+                                Datos del mototaxi
+                            </h3>
+
+                            <p class="text-sm text-gray-500">
+                                Información del vehículo registrado
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Modelo -->
                 <div class="sm:col-span-3">
 
-                    <label for="modelo" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="modelo"
+                        class="block text-sm font-medium text-gray-900">
+
                         Modelo
+
                     </label>
 
-                    <div class="mt-2 grid grid-cols-1">
+                    <div class="mt-2">
 
-                        <!-- 
-                          Select conectado a la variable modelo.
-                        -->
                         <select
                             id="modelo"
                             name="modelo"
                             [(ngModel)]="modelo"
-                            autocomplete="modelos"
-                            class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            class="w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600">
 
                             <option>TVS King</option>
                             <option>Bajaj</option>
@@ -140,11 +200,15 @@
 
                 </div>
 
-                <!-- Campo color -->
+                <!-- Color -->
                 <div class="sm:col-span-2 sm:col-start-1">
 
-                    <label for="color" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="color"
+                        class="block text-sm font-medium text-gray-900">
+
                         Color
+
                     </label>
 
                     <div class="mt-2">
@@ -154,8 +218,7 @@
                             type="text"
                             name="color"
                             [(ngModel)]="color"
-                            autocomplete="address-level2"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+                            class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
 
                     </div>
 
@@ -164,21 +227,21 @@
                 <!-- Seguro de vida -->
                 <div class="sm:col-span-2">
 
-                    <label for="region" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="seguroVida"
+                        class="block text-sm font-medium text-gray-900">
+
                         Seguro de vida
+
                     </label>
 
-                    <div class="mt-2 grid grid-cols-1">
+                    <div class="mt-2">
 
-                        <!-- 
-                          Select conectado a seguroVida.
-                        -->
                         <select
                             id="seguroVida"
                             name="seguroVida"
                             [(ngModel)]="seguroVida"
-                            autocomplete="country-name"
-                            class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            class="w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 focus:outline-2 focus:outline-indigo-600">
 
                             <option>Si</option>
                             <option>No</option>
@@ -189,26 +252,26 @@
 
                 </div>
 
-                <!-- Código automático -->
+                <!-- Código -->
                 <div class="sm:col-span-2">
 
-                    <label for="codigo" class="block text-sm/6 font-medium text-gray-900">
+                    <label
+                        for="codigo"
+                        class="block text-sm font-medium text-gray-900">
+
                         Código único de identificación de mototaxi
+
                     </label>
 
                     <div class="mt-2">
 
-                        <!-- 
-                          Campo readonly.
-                          El código se genera automáticamente desde TypeScript.
-                        -->
                         <input
                             id="codigo"
                             type="text"
                             name="codigo"
                             [(ngModel)]="codigo"
                             readonly
-                            class="block w-full cursor-not-allowed rounded-md bg-gray-100 px-3 py-1.5 text-base text-gray-500 outline-1 -outline-offset-1 outline-gray-300 sm:text-sm/6" />
+                            class="block w-full cursor-not-allowed rounded-xl bg-gray-200 px-3 py-2 text-sm text-gray-500 outline outline-1 outline-gray-300" />
 
                     </div>
 
@@ -221,26 +284,22 @@
     </div>
 
     <!-- Botones -->
-    <div class="mt-6 flex items-center justify-end gap-x-6">
+    <div class="mt-6 flex items-center justify-end gap-x-4">
 
-        <!-- Botón cancelar -->
+        <!-- Cancelar -->
         <button
             type="button"
             (click)="cancelar()"
-          class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500
-          focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            class="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-red-500">
 
             Cancelar
 
         </button>
 
-        <!-- 
-          Botón submit.
-          Ejecuta el método guardarMototaxi().
-        -->
+        <!-- Actualizar -->
         <button
             type="submit"
-            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            class="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500">
 
             Actualizar
 
