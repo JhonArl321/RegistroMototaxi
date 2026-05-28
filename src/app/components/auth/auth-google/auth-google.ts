@@ -1,30 +1,29 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth';
 import { inject } from '@angular/core';
 
-import { AuthService } from '../../services/auth';
-
 @Component({
-  selector: 'app-auth-github',
+  selector: 'app-auth-google',
   standalone: true,
   imports: [],
-  templateUrl: './auth-github.html',
-  styleUrl: './auth-github.css',
+  templateUrl: './auth-google.html',
+  styleUrls: ['./auth-google.css'],
 })
 
-export class AuthGithubComponent {
+export class AuthGoogleComponent {
 
   // Inyección de servicios necesarios
   router = inject(Router);
   authService = inject(AuthService);
 
-  // Método para iniciar sesión con GitHub
+  // Método para iniciar sesión con Google
   login() {
 
-    this.authService.loginGithub()
+    this.authService.loginGoogle()
       .then((response) => {
 
-        console.log("Login GitHub correcto");
+        console.log("Login correcto");
         console.log(response.user);
 
         // Redirige al dashboard después del login

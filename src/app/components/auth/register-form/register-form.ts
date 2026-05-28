@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-register-form',

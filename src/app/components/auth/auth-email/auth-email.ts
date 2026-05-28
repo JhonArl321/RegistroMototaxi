@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { RouterLink } from '@angular/router';
 
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../../services/auth';
 import { Router } from '@angular/router';
 
 @Component({

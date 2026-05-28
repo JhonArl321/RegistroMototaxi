@@ -11,7 +11,7 @@ import { RegistrarPropietarios } from './pages/registrar-propietarios/registrar-
 import { ListarPropietarios } from './pages/listar-propietarios/listar-propietarios';
 
 import { EditarPropietarios } from './pages/editar-propietarios/editar-propietarios';
-import { RegisterFormComponent } from './components/register-form/register-form';
+import { RegisterFormComponent } from './components/auth/register-form/register-form';
 
 // IMPORTAR GUARD
 import { authGuard } from './guards/auth-guard';
