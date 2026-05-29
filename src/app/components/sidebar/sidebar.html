@@ -126,7 +126,7 @@
 
             {{
               authService.currentUser?.displayName?.charAt(0)
-              || authService.githubUsername.charAt(0)
+              || authService.username.charAt(0)
             }}
 
           </span>
@@ -141,7 +141,7 @@
 
             {{
               authService.currentUser?.displayName
-              || authService.githubUsername
+              || authService.username
               || authService.userEmail
             }}
 

@@ -32,7 +32,7 @@ export class AuthService {
   currentUser: User | null = null;
 
   // Datos básicos del usuario
-  githubUsername = '';
+  username = '';
   userPhoto = '';
   userEmail = '';
 
@@ -80,8 +80,8 @@ export class AuthService {
     const usuario =
       JSON.parse(usuarioGuardado);
 
-    this.githubUsername =
-      usuario.githubUsername || '';
+    this.username =
+      usuario.username || '';
 
     this.userPhoto =
       usuario.userPhoto || '';
@@ -98,9 +98,12 @@ export class AuthService {
 
     this.currentUser = usuario;
 
-    this.githubUsername =
+    // GitHub utiliza screenName y Google displayName
+    this.username =
       (usuario as any)
-      .reloadUserInfo?.screenName || '';
+      .reloadUserInfo?.screenName ||
+      usuario.displayName ||
+      '';
 
     this.userPhoto =
       usuario.photoURL || '';
@@ -116,12 +119,9 @@ export class AuthService {
     localStorage.setItem(
       'usuario',
       JSON.stringify({
-        githubUsername:
-          this.githubUsername,
-        userPhoto:
-          this.userPhoto,
-        userEmail:
-          this.userEmail
+        username: this.username,
+        userPhoto: this.userPhoto,
+        userEmail: this.userEmail
       })
     );
 
@@ -131,7 +131,7 @@ export class AuthService {
   private limpiarDatosUsuario(): void {
 
     this.currentUser = null;
-    this.githubUsername = '';
+    this.username = '';
     this.userPhoto = '';
     this.userEmail = '';
 
@@ -211,4 +211,3 @@ export class AuthService {
   }
 
 }
-
