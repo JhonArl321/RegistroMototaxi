@@ -25,24 +25,26 @@ import { AuthService } from '../../services/auth';
 
 export class SidebarComponent {
 
-  // Servicios
+  // Servicios utilizados por el componente
   router = inject(Router);
   authService = inject(AuthService);
 
-  // Spinner usuario
+  // Controla la carga de información del usuario
   loadingUser = true;
 
-  // Sidebar
+  // Estado del sidebar
   @Input() sidebarOpen = false;
 
-  // Evento cerrar
-  @Output() close = new EventEmitter<void>();
+  // Notifica al componente padre que debe cerrarse
+  @Output() close =
+    new EventEmitter<void>();
 
   constructor(
     private cd: ChangeDetectorRef
   ) {
 
-    // Esperar restauración auth
+    // Se espera brevemente para permitir
+    // que Firebase restaure la sesión
     setTimeout(() => {
 
       this.loadingUser = false;
