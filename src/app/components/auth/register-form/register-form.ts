@@ -1,4 +1,9 @@
-import { Component, inject,  AfterViewInit} from '@angular/core';
+import {
+  Component,
+  inject,
+  AfterViewInit
+} from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -13,44 +18,66 @@ import { AuthService } from '../../../services/auth';
   styleUrl: './register-form.css',
 })
 
-export class RegisterFormComponent implements AfterViewInit {
+export class RegisterFormComponent
+  implements AfterViewInit {
 
-  // Services
+  // Servicios utilizados por el componente
   authService = inject(AuthService);
   router = inject(Router);
 
-  // Variables
+  // Datos del formulario
   nombre = '';
   email = '';
   password = '';
   confirmPassword = '';
+
   widgetId: any;
-
-
-
-
 
   ngAfterViewInit(): void {
 
-  setTimeout(() => {
+    // Se espera un momento para asegurar
+    // que el contenedor del captcha ya existe
+    setTimeout(() => {
 
-    this.widgetId =
-      (window as any).grecaptcha.render(
-        'recaptcha-container',
-        {
-          sitekey:
-            '6LfulQEtAAAAACYtu-kjfAQH_UR8caQgmA1PUJzy'
-        }
-      );
+      this.widgetId =
+        (window as any).grecaptcha.render(
+          'recaptcha-container',
+          {
+            sitekey:
+              '6LfulQEtAAAAACYtu-kjfAQH_UR8caQgmA1PUJzy'
+          }
+        );
 
-  }, 500);
+    }, 500);
 
-}
+  }
 
-  // REGISTRAR USUARIO
+  // Centralizar la configuración evita
+  // repetir el mismo código en cada alerta
+  private mostrarAlerta(
+    icon: 'success' | 'error' | 'warning',
+    title: string,
+    text?: string
+  ) {
+
+    Swal.fire({
+
+      icon,
+      title,
+      text,
+
+      width: '320px',
+      background: '#1f2937',
+      color: '#fff',
+      confirmButtonColor: '#4f46e5'
+
+    });
+
+  }
+
   async registrar() {
 
-    // Campos vacíos
+    // Evita enviar información incompleta
     if (
       !this.nombre ||
       !this.email ||
@@ -58,84 +85,58 @@ export class RegisterFormComponent implements AfterViewInit {
       !this.confirmPassword
     ) {
 
-      Swal.fire({
-
-        icon: 'warning',
-        title: 'Campos vacíos',
-        text: 'Debes completar todos los campos',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'warning',
+        'Campos vacíos',
+        'Debes completar todos los campos'
+      );
 
       return;
 
     }
 
-    // SOLO GMAIL
+    // Limitar registros únicamente
+    // a cuentas de Gmail
     if (!this.email.endsWith('@gmail.com')) {
 
-      Swal.fire({
-
-        icon: 'warning',
-        title: 'Solo se permiten correos Gmail',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'warning',
+        'Solo se permiten correos Gmail'
+      );
 
       return;
 
     }
 
-    // Contraseñas iguales
-    if (this.password !== this.confirmPassword) {
+    // Verificar que el usuario escribió
+    // correctamente su contraseña
+    if (
+      this.password !==
+      this.confirmPassword
+    ) {
 
-      Swal.fire({
-
-        icon: 'error',
-        title: 'Contraseñas diferentes',
-        text: 'Las contraseñas no coinciden',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'error',
+        'Contraseñas diferentes',
+        'Las contraseñas no coinciden'
+      );
 
       return;
 
     }
 
-
-
-
-
-
-    // CAPTCHA
     const captcha =
-      (window as any).grecaptcha.getResponse();
+      (window as any)
+        .grecaptcha
+        .getResponse();
 
+    // Evita registros automáticos o bots
     if (!captcha) {
 
-      Swal.fire({
-
-        icon: 'warning',
-        title: 'Completa el captcha',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'warning',
+        'Completa el captcha'
+      );
 
       return;
 
@@ -143,25 +144,21 @@ export class RegisterFormComponent implements AfterViewInit {
 
     try {
 
-      await this.authService.registrarUsuario(
-        this.nombre,
-        this.email,
-        this.password
+      await this.authService
+        .registrarUsuario(
+          this.nombre,
+          this.email,
+          this.password
+        );
+
+      this.mostrarAlerta(
+        'success',
+        'Cuenta creada'
       );
 
-      Swal.fire({
-
-        icon: 'success',
-        title: 'Cuenta creada',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
-
-      (window as any).grecaptcha.reset();
+      (window as any)
+        .grecaptcha
+        .reset();
 
       this.router.navigate(['/']);
 
@@ -169,17 +166,12 @@ export class RegisterFormComponent implements AfterViewInit {
 
     catch {
 
-      Swal.fire({
-
-        icon: 'error',
-        title: 'Error',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      // Mostrar un mensaje amigable
+      // si ocurre cualquier error
+      this.mostrarAlerta(
+        'error',
+        'Error'
+      );
 
     }
 
