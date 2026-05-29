@@ -125,7 +125,7 @@
           <span *ngIf="!authService.userPhoto">
 
             {{
-              authService.googleUsername?.displayName?.charAt(0)
+              authService.currentUser?.displayName?.charAt(0)
               || authService.githubUsername.charAt(0)
             }}
 
@@ -140,7 +140,7 @@
           <p class="truncate text-sm font-semibold text-white">
 
             {{
-              authService.googleUsername?.displayName
+              authService.currentUser?.displayName
               || authService.githubUsername
               || authService.userEmail
             }}

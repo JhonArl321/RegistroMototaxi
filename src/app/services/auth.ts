@@ -28,103 +28,40 @@ import {
 
 export class AuthService {
 
-  // Usuario autenticado
-  googleUsername: User | null = null;
+  // Usuario autenticado en Firebase
+  currentUser: User | null = null;
 
-  // Datos usuario
+  // Datos básicos del usuario
   githubUsername = '';
   userPhoto = '';
   userEmail = '';
 
   constructor(private auth: Auth) {
 
-    // Mantener sesión activa
+    // Mantener la sesión activa aunque se cierre el navegador
     setPersistence(
       this.auth,
       browserLocalPersistence
     );
 
-    // Cargar usuario guardado
-    if (typeof localStorage !== 'undefined') {
+    // Cargar datos guardados localmente
+    this.cargarUsuarioGuardado();
 
-      const usuarioGuardado =
-        localStorage.getItem('usuario');
-
-      if (usuarioGuardado) {
-
-        const usuario =
-          JSON.parse(usuarioGuardado);
-
-        this.githubUsername =
-          usuario.githubUsername || '';
-
-        this.userPhoto =
-          usuario.userPhoto || '';
-
-        this.userEmail =
-          usuario.userEmail || '';
-
-      }
-
-    }
-
-    // Detectar cambios sesión
+    // Escuchar cambios de autenticación
     onAuthStateChanged(this.auth, (usuario) => {
 
-      // Usuario autenticado
       if (usuario) {
 
-        this.googleUsername = usuario;
+        // Actualizar información del usuario
+        this.actualizarDatosUsuario(usuario);
 
-        this.githubUsername =
-          (usuario as any)
-            .reloadUserInfo?.screenName || '';
+        // Guardar datos en localStorage
+        this.guardarUsuarioLocal();
 
-        this.userPhoto =
-          usuario.photoURL || '';
+      } else {
 
-        this.userEmail =
-          usuario.email || '';
-
-        // Guardar cache
-        if (typeof localStorage !== 'undefined') {
-
-          localStorage.setItem(
-
-            'usuario',
-
-            JSON.stringify({
-
-              githubUsername:
-                this.githubUsername,
-
-              userPhoto:
-                this.userPhoto,
-
-              userEmail:
-                this.userEmail
-
-            })
-
-          );
-
-        }
-
-      }
-
-      // Cerrar sesión
-      else {
-
-        this.googleUsername = null;
-        this.githubUsername = '';
-        this.userPhoto = '';
-        this.userEmail = '';
-
-        if (typeof localStorage !== 'undefined') {
-
-          localStorage.removeItem('usuario');
-
-        }
+        // Limpiar datos al cerrar sesión
+        this.limpiarDatosUsuario();
 
       }
 
@@ -132,7 +69,79 @@ export class AuthService {
 
   }
 
-  // Login Google
+  // Recupera los datos almacenados en localStorage
+  private cargarUsuarioGuardado(): void {
+
+    const usuarioGuardado =
+      localStorage.getItem('usuario');
+
+    if (!usuarioGuardado) return;
+
+    const usuario =
+      JSON.parse(usuarioGuardado);
+
+    this.githubUsername =
+      usuario.githubUsername || '';
+
+    this.userPhoto =
+      usuario.userPhoto || '';
+
+    this.userEmail =
+      usuario.userEmail || '';
+
+  }
+
+  // Actualiza los datos del usuario autenticado
+  private actualizarDatosUsuario(
+    usuario: User
+  ): void {
+
+    this.currentUser = usuario;
+
+    this.githubUsername =
+      (usuario as any)
+      .reloadUserInfo?.screenName || '';
+
+    this.userPhoto =
+      usuario.photoURL || '';
+
+    this.userEmail =
+      usuario.email || '';
+
+  }
+
+  // Guarda los datos del usuario en localStorage
+  private guardarUsuarioLocal(): void {
+
+    localStorage.setItem(
+      'usuario',
+      JSON.stringify({
+        githubUsername:
+          this.githubUsername,
+        userPhoto:
+          this.userPhoto,
+        userEmail:
+          this.userEmail
+      })
+    );
+
+  }
+
+  // Limpia los datos del usuario y elimina la caché local
+  private limpiarDatosUsuario(): void {
+
+    this.currentUser = null;
+    this.githubUsername = '';
+    this.userPhoto = '';
+    this.userEmail = '';
+
+    localStorage.removeItem(
+      'usuario'
+    );
+
+  }
+
+  // Iniciar sesión con Google
   loginGoogle() {
 
     return signInWithPopup(
@@ -142,7 +151,7 @@ export class AuthService {
 
   }
 
-  // Login GitHub
+  // Iniciar sesión con GitHub
   loginGithub() {
 
     return signInWithPopup(
@@ -152,33 +161,31 @@ export class AuthService {
 
   }
 
-  // Registrar usuario
-// Registrar usuario
-async registrarUsuario(
-  nombre: string,
-  email: string,
-  password: string
-) {
+  // Registrar un nuevo usuario
+  async registrarUsuario(
+    nombre: string,
+    email: string,
+    password: string
+  ) {
 
-  const respuesta =
-    await createUserWithEmailAndPassword(
-      this.auth,
-      email,
-      password
+    const respuesta =
+      await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+
+    // Asignar nombre al perfil
+    await updateProfile(
+      respuesta.user,
+      {
+        displayName: nombre
+      }
     );
 
-  // Guardar nombre
-  await updateProfile(
-    respuesta.user,
-    {
-      displayName: nombre
-    }
-  );
+  }
 
-}
-
-
-  // Login usuario
+  // Iniciar sesión con correo y contraseña
   loginUsuario(
     email: string,
     password: string
@@ -195,14 +202,13 @@ async registrarUsuario(
   // Cerrar sesión
   logout() {
 
-    if (typeof localStorage !== 'undefined') {
+    this.limpiarDatosUsuario();
 
-      localStorage.removeItem('usuario');
-
-    }
-
-    return signOut(this.auth);
+    return signOut(
+      this.auth
+    );
 
   }
 
 }
+
