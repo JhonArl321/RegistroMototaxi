@@ -31,88 +31,113 @@ export class FormularioComponent {
   color = '';
   seguroVida = '';
 
+  dpiError = '';
+
   // Código automático
   codigo = this.motoService.generarCodigo();
 
   // Método guardar
-  async guardarMototaxi(formulario: NgForm) {
+async guardarMototaxi(formulario: NgForm) {
 
-    // Limpieza de espacios
-    const nombresLimpio = this.nombres.trim();
-    const apellidosLimpio = this.apellidos.trim();
-    const dpiLimpio = this.dpi.trim();
-    const domicilioLimpio = this.domicilio.trim();
-    const colorLimpio = this.color.trim();
+  // Limpieza de espacios
+  const nombresLimpio = this.nombres.trim();
+  const apellidosLimpio = this.apellidos.trim();
+  const dpiLimpio = this.dpi.trim();
+  const domicilioLimpio = this.domicilio.trim();
+  const colorLimpio = this.color.trim();
 
-    // Validación
-    if (
-      !nombresLimpio ||
-      !apellidosLimpio ||
-      !dpiLimpio ||
-      !domicilioLimpio ||
-      !this.modelo ||
-      !colorLimpio ||
-      !this.seguroVida
-    ) {
+  // Validación de campos vacíos
+  if (
+    !nombresLimpio ||
+    !apellidosLimpio ||
+    !dpiLimpio ||
+    !domicilioLimpio ||
+    !this.modelo ||
+    !colorLimpio ||
+    !this.seguroVida
+  ) {
 
-      Swal.fire({
-        icon: 'warning',
-        title: 'Campos vacíos',
-        text: 'Debes completar todos los campos',
-        confirmButtonColor: '#4f46e5'
-      });
+    Swal.fire({
+      icon: 'warning',
+      title: 'Campos vacíos',
+      text: 'Debes completar todos los campos',
+      confirmButtonColor: '#4f46e5'
+    });
 
-      return;
+    return;
+  }
 
-    }
+  // Si el DPI tiene error, no permitir guardar
+  if (this.dpiError) {
+    return;
+  }
 
-    try {
+  try {
 
-      // Guardar usando el service
-      await this.motoService.guardarMototaxi({
+    // Guardar usando el service
+    await this.motoService.guardarMototaxi({
 
-        nombres: nombresLimpio,
-        apellidos: apellidosLimpio,
-        dpi: dpiLimpio,
-        domicilio: domicilioLimpio,
-        modelo: this.modelo,
-        color: colorLimpio,
-        seguroVida: this.seguroVida,
-        codigo: this.codigo
+      nombres: nombresLimpio,
+      apellidos: apellidosLimpio,
+      dpi: dpiLimpio,
+      domicilio: domicilioLimpio,
+      modelo: this.modelo,
+      color: colorLimpio,
+      seguroVida: this.seguroVida,
+      codigo: this.codigo
 
-      });
+    });
 
-      // Mensaje éxito
-      Swal.fire({
-        icon: 'success',
-        title: 'Mototaxi registrado',
-        text: 'La información fue guardada correctamente',
-        confirmButtonColor: '#4f46e5'
-      });
+    // Mensaje éxito
+    Swal.fire({
+      icon: 'success',
+      title: 'Mototaxi registrado',
+      text: 'La información fue guardada correctamente',
+      confirmButtonColor: '#4f46e5'
+    });
 
-      // Limpiar formulario
-      formulario.resetForm();
+    // Limpiar formulario
+    formulario.resetForm();
 
-      // Nuevo código automático
-      this.codigo = this.motoService.generarCodigo();
+    // Limpiar mensaje de error del DPI
+    this.dpiError = '';
 
-    } catch (error) {
+    // Nuevo código automático
+    this.codigo = this.motoService.generarCodigo();
 
-      console.log(error);
+  } catch (error) {
 
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'No se pudo registrar el mototaxi'
-      });
+    console.log(error);
 
-    }
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo registrar el mototaxi'
+    });
 
   }
+
+}
 
   cancelar(){
     this.router.navigate(['/dashboard'])
    
   }
+
+
+  validarDpi() {
+
+  if (this.dpi === '') {
+    this.dpiError = '';
+    return;
+  }
+
+  if (!/^\d{13}$/.test(this.dpi)) {
+    this.dpiError = 'El DPI debe contener exactamente 13 números';
+  } else {
+    this.dpiError = '';
+  }
+
+}
 
 }

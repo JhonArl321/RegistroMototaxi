@@ -95,8 +95,14 @@
 
                     <div class="mt-2">
 
-                        <input id="dpi" type="text" name="dpi" [(ngModel)]="dpi"
+                        <input id="dpi" type="text" name="dpi" maxlength="13" [(ngModel)]="dpi" (input)="validarDpi()"
                             class="block w-full rounded-xl bg-white px-3 py-2 text-sm text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600" />
+
+                        @if (dpiError) {
+                        <p class="mt-1 text-sm text-red-600">
+                            {{ dpiError }}
+                        </p>
+                        }
 
                     </div>
 
