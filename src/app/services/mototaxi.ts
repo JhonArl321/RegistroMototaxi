@@ -11,163 +11,184 @@ import {
   updateDoc
 } from '@angular/fire/firestore';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class MototaxiService {
+
+  private readonly COLLECTION = 'mototaxis';
+  private readonly CACHE_KEY = 'mototaxis';
 
   firestore = inject(Firestore);
 
   // Guardar mototaxi
-  async guardarMototaxi(data: UsuarioMototaxi) {
+  async guardarMototaxi(
+    data: UsuarioMototaxi
+  ) {
 
-    const referencia = collection(this.firestore, 'mototaxis');
+    const referencia = collection(
+      this.firestore,
+      this.COLLECTION
+    );
 
-    return await addDoc(referencia, data);
+    return addDoc(
+      referencia,
+      data
+    );
 
   }
 
   // Generar código automático
   generarCodigo(): string {
 
-    const numero = Math.floor(100 + Math.random() * 900);
+    const numero =
+      Math.floor(100 + Math.random() * 900);
 
-    const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const letras =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-    const letra1 = letras[Math.floor(Math.random() * 26)];
-    const letra2 = letras[Math.floor(Math.random() * 26)];
-    const letra3 = letras[Math.floor(Math.random() * 26)];
+    const letra1 =
+      letras[Math.floor(Math.random() * 26)];
+
+    const letra2 =
+      letras[Math.floor(Math.random() * 26)];
+
+    const letra3 =
+      letras[Math.floor(Math.random() * 26)];
 
     return `M ${numero} ${letra1}${letra2}${letra3}`;
 
   }
 
+  // Obtener mototaxis
   async obtenerMototaxis(): Promise<UsuarioMototaxi[]> {
 
-    // 1. Revisar cache
     const cache =
+      localStorage.getItem(
+        this.CACHE_KEY
+      );
 
-      typeof localStorage !== 'undefined'
-
-        ? localStorage.getItem('mototaxis')
-
-        : null;
-
-    // 2. Si existe cache devolverlo rápido
     if (cache) {
 
-      console.log('DATOS DESDE CACHE');
-
-      // Actualizar Firebase en segundo plano
-      this.actualizarCache().catch(console.error);
+      this.actualizarCache()
+        .catch(console.error);
 
       return JSON.parse(cache);
 
     }
 
-    // 3. Si no existe cache consultar Firebase
-    return await this.actualizarCache();
+    return this.actualizarCache();
+
   }
 
-  //actualizar cahe
-  async actualizarCache(): Promise<UsuarioMototaxi[]> {
+  // Actualizar cache desde Firebase
+  async actualizarCache():
+    Promise<UsuarioMototaxi[]> {
 
-    const mototaxisRef = collection(
+    const referencia = collection(
       this.firestore,
-      'mototaxis'
+      this.COLLECTION
     );
 
-    const snapshot = await getDocs(
-      mototaxisRef
+    const snapshot =
+      await getDocs(referencia);
+
+    const datos: UsuarioMototaxi[] =
+      snapshot.docs.map(doc => ({
+
+        id: doc.id,
+
+        ...(doc.data() as Omit<
+          UsuarioMototaxi,
+          'id'
+        >)
+
+      }));
+
+    localStorage.setItem(
+      this.CACHE_KEY,
+      JSON.stringify(datos)
     );
-
-    const datos: UsuarioMototaxi[] = snapshot.docs.map(doc => ({
-
-      id: doc.id,
-
-      ...(doc.data() as Omit<UsuarioMototaxi, 'id'>)
-
-    }));
-
-    if (typeof localStorage !== 'undefined') {
-
-      localStorage.setItem(
-        'mototaxis',
-        JSON.stringify(datos)
-      );
-
-    }
 
     return datos;
 
   }
 
-  // TOTAL MOTOTAXIS
+  // Total de mototaxis
   async totalMototaxis() {
 
-    const mototaxis: UsuarioMototaxi[] =
+    const mototaxis =
       await this.obtenerMototaxis();
 
     return mototaxis.length;
 
   }
 
-  // TOTAL CON SEGURO
+  // Total con seguro
   async totalConSeguro() {
 
-    const mototaxis: UsuarioMototaxi[] =
+    const mototaxis =
       await this.obtenerMototaxis();
 
     return mototaxis.filter(
-      m => m.seguroVida === "Si"
+      m => m.seguroVida === 'Si'
     ).length;
 
   }
 
-  // TOTAL SIN SEGURO
+  // Total sin seguro
   async totalSinSeguro() {
 
-    const mototaxis: UsuarioMototaxi[] =
+    const mototaxis =
       await this.obtenerMototaxis();
 
-    console.log(mototaxis);
-
     return mototaxis.filter(
-      m => m.seguroVida === "No"
+      m => m.seguroVida === 'No'
     ).length;
 
   }
 
-  // ELIMINAR MOTOTAXI
-  async eliminarMototaxi(id: string) {
+  // Eliminar mototaxi
+  async eliminarMototaxi(
+    id: string
+  ) {
 
     const documento = doc(
       this.firestore,
-      `mototaxis/${id}`
+      `${this.COLLECTION}/${id}`
     );
 
     await deleteDoc(documento);
 
   }
 
-  async obtenerPorId(id: string): Promise<UsuarioMototaxi> {
+  // Buscar por id
+  async obtenerPorId(
+    id: string
+  ): Promise<UsuarioMototaxi> {
 
-    const docRef = doc(
+    const documento = doc(
       this.firestore,
-      'mototaxis',
+      this.COLLECTION,
       id
     );
 
-    const respuesta = await getDoc(docRef);
+    const respuesta =
+      await getDoc(documento);
 
     return {
+
       id: respuesta.id,
+
       ...respuesta.data()
+
     } as UsuarioMototaxi;
 
   }
 
+  // Actualizar mototaxi
   async actualizarMototaxi(
     id: string,
     data: Partial<UsuarioMototaxi>
@@ -175,7 +196,7 @@ export class MototaxiService {
 
     const documento = doc(
       this.firestore,
-      `mototaxis/${id}`
+      `${this.COLLECTION}/${id}`
     );
 
     await updateDoc(
