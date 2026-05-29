@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-
+import { UsuarioMototaxi } from '../models/usuario-mototaxi';
 import {
   Firestore,
   collection,
@@ -20,7 +20,7 @@ export class MototaxiService {
   firestore = inject(Firestore);
 
   // Guardar mototaxi
-  async guardarMototaxi(data: any) {
+  async guardarMototaxi(data: UsuarioMototaxi) {
 
     const referencia = collection(this.firestore, 'mototaxis');
 
@@ -43,7 +43,7 @@ export class MototaxiService {
 
   }
 
-  async obtenerMototaxis() {
+  async obtenerMototaxis(): Promise<UsuarioMototaxi[]> {
 
     // 1. Revisar cache
     const cache =
@@ -70,8 +70,8 @@ export class MototaxiService {
     return await this.actualizarCache();
   }
 
-
-  async actualizarCache() {
+  //actualizar cahe
+  async actualizarCache(): Promise<UsuarioMototaxi[]> {
 
     const mototaxisRef = collection(
       this.firestore,
@@ -82,15 +82,14 @@ export class MototaxiService {
       mototaxisRef
     );
 
-    const datos = snapshot.docs.map(doc => ({
+    const datos: UsuarioMototaxi[] = snapshot.docs.map(doc => ({
 
       id: doc.id,
 
-      ...doc.data()
+      ...(doc.data() as Omit<UsuarioMototaxi, 'id'>)
 
     }));
 
-    // Guardar cache
     if (typeof localStorage !== 'undefined') {
 
       localStorage.setItem(
@@ -100,23 +99,14 @@ export class MototaxiService {
 
     }
 
-
-
-    console.log('CACHE ACTUALIZADO');
-
     return datos;
 
   }
 
-
-
-
-
-
   // TOTAL MOTOTAXIS
   async totalMototaxis() {
 
-    const mototaxis: any[] =
+    const mototaxis: UsuarioMototaxi[] =
       await this.obtenerMototaxis();
 
     return mototaxis.length;
@@ -126,7 +116,7 @@ export class MototaxiService {
   // TOTAL CON SEGURO
   async totalConSeguro() {
 
-    const mototaxis: any[] =
+    const mototaxis: UsuarioMototaxi[] =
       await this.obtenerMototaxis();
 
     return mototaxis.filter(
@@ -138,7 +128,7 @@ export class MototaxiService {
   // TOTAL SIN SEGURO
   async totalSinSeguro() {
 
-    const mototaxis: any[] =
+    const mototaxis: UsuarioMototaxi[] =
       await this.obtenerMototaxis();
 
     console.log(mototaxis);
@@ -161,9 +151,7 @@ export class MototaxiService {
 
   }
 
-
-
-  async obtenerPorId(id: string): Promise<any> {
+  async obtenerPorId(id: string): Promise<UsuarioMototaxi> {
 
     const docRef = doc(
       this.firestore,
@@ -176,16 +164,13 @@ export class MototaxiService {
     return {
       id: respuesta.id,
       ...respuesta.data()
-    };
+    } as UsuarioMototaxi;
 
   }
 
-
-
-
   async actualizarMototaxi(
     id: string,
-    data: any
+    data: Partial<UsuarioMototaxi>
   ) {
 
     const documento = doc(

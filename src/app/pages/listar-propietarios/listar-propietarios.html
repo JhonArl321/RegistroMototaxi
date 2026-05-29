@@ -174,7 +174,7 @@
               <div class="flex items-center justify-center gap-2">
 
                 <!-- Editar -->
-                <button (click)="editar(moto)"
+                <button (click)="editar(moto!)"
                   class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100">
 
                   Editar
@@ -182,7 +182,7 @@
                 </button>
 
                 <!-- Eliminar -->
-                <button (click)="eliminar(moto.id)"
+                <button (click)="eliminar(moto.id!)"
                   class="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-100">
 
                   Eliminar
@@ -302,7 +302,7 @@
         </button>
 
         <!-- Eliminar -->
-        <button (click)="eliminar(moto.id)"
+        <button (click)="eliminar(moto.id!)"
           class="flex-1 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-100">
 
           Eliminar

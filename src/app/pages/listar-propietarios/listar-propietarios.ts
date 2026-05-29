@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 
 import { MototaxiService } from '../../services/mototaxi';
 import { Router } from '@angular/router';
+import { UsuarioMototaxi } from '../../models/usuario-mototaxi';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,7 @@ import Swal from 'sweetalert2';
 export class ListarPropietarios implements OnInit {
 
   // Datos
-  mototaxis: any[] = [];
+  mototaxis: UsuarioMototaxi[] = [];
 
   // Spinner
   loading = true;
@@ -42,9 +43,7 @@ export class ListarPropietarios implements OnInit {
 
     try {
 
-      this.mototaxis =
-       this.mototaxis =
-  await this.motoService.actualizarCache();
+      this.mototaxis = await this.motoService.actualizarCache();
 
       console.log(this.mototaxis);
 
@@ -66,16 +65,6 @@ export class ListarPropietarios implements OnInit {
     }
 
   }
-
-
-
-
-
-
-
-
-
-
 
 
  async eliminar(id: string) {
@@ -139,35 +128,7 @@ export class ListarPropietarios implements OnInit {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  async editar(moto: any) {
+  async editar(moto: UsuarioMototaxi) {
 
     this.router.navigate(
       ['editar-propietario'],

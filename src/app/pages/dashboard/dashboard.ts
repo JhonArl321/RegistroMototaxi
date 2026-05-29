@@ -40,6 +40,9 @@ export class Dashboard {
 
     this.totalMototaxis =
       await this.motoService.totalMototaxis();
+      console.log(
+  await this.motoService.obtenerMototaxis()
+);
 
     this.totalConSeguro =
       await this.motoService.totalConSeguro();
