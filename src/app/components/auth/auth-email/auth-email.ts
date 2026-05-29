@@ -14,101 +14,95 @@ import { AuthService } from '../../../services/auth';
 
 export class AuthEmailComponent {
 
-  // Servicios
+  // Servicios utilizados por el componente
   authService = inject(AuthService);
   router = inject(Router);
 
-  // Campos formulario
+  // Datos del formulario
   email = '';
   password = '';
 
-  // LOGIN
+  // Centralizar las alertas evita repetir
+  // la misma configuración en todo el componente
+  private mostrarAlerta(
+    icon: 'success' | 'error' | 'warning',
+    title: string,
+    text?: string
+  ) {
+
+    Swal.fire({
+
+      icon,
+      title,
+      text,
+
+      width: '320px',
+      background: '#1f2937',
+      color: '#fff',
+      confirmButtonColor: '#4f46e5'
+
+    });
+
+  }
+
   async login() {
 
-    // Regex email
     const emailValido =
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Campos vacíos
+    // Evita enviar un formulario incompleto
     if (
       !this.email ||
       !this.password
     ) {
 
-      Swal.fire({
-
-        icon: 'warning',
-        title: 'Campos vacíos',
-        text: 'Completa todos los campos',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'warning',
+        'Campos vacíos',
+        'Completa todos los campos'
+      );
 
       return;
 
     }
 
-    // Validar email
+    // Evita correos con formato incorrecto
     if (!emailValido.test(this.email)) {
 
-      Swal.fire({
-
-        icon: 'warning',
-        title: 'Correo inválido',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'warning',
+        'Correo inválido'
+      );
 
       return;
 
     }
 
-    // SOLO GMAIL
+    // Restringir el acceso únicamente
+    // a cuentas Gmail
     if (
       !this.email
         .toLowerCase()
         .endsWith('@gmail.com')
     ) {
 
-      Swal.fire({
-
-        icon: 'warning',
-        title: 'Solo se permiten correos Gmail',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'warning',
+        'Solo se permiten correos Gmail'
+      );
 
       return;
 
     }
 
-    // Validar contraseña
+    // Evita contraseñas demasiado cortas
     if (this.password.length < 6) {
 
-      Swal.fire({
-
-        icon: 'warning',
-        title: 'Contraseña inválida',
-        text: 'Mínimo 6 caracteres',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      this.mostrarAlerta(
+        'warning',
+        'Contraseña inválida',
+        'Mínimo 6 caracteres'
+      );
 
       return;
 
@@ -116,31 +110,27 @@ export class AuthEmailComponent {
 
     try {
 
-      // Login Firebase
       await this.authService.loginUsuario(
         this.email,
         this.password
       );
 
-      // Redireccionar
-      this.router.navigate(['/dashboard']);
+      // Redirigir únicamente si el login fue exitoso
+      this.router.navigate([
+        '/dashboard'
+      ]);
 
     }
 
     catch {
 
-      Swal.fire({
-
-        icon: 'error',
-        title: 'Error al iniciar sesión',
-        text: 'Credenciales incorrectas',
-
-        width: '320px',
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#4f46e5'
-
-      });
+      // Mostrar un mensaje claro
+      // cuando las credenciales son incorrectas
+      this.mostrarAlerta(
+        'error',
+        'Error al iniciar sesión',
+        'Credenciales incorrectas'
+      );
 
     }
 
